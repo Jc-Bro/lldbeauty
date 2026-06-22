@@ -82,12 +82,6 @@ export class BookingSectionComponent implements OnInit {
 
     return Array.from(monthMap.values()).sort((left, right) => left.key.localeCompare(right.key));
   });
-  protected readonly availableDateKeys = computed(() =>
-    Array.from(
-      new Set(this.filteredReservableSlots().map((slot) => this.toDateKey(new Date(slot.startAt)))),
-    ).sort((left, right) => left.localeCompare(right)),
-  );
-
   protected readonly days = computed<BookingDayView[]>(() => {
     const monthKey = this.selectedMonthKey();
     const [year, month] = monthKey.split('-').map(Number);
@@ -145,14 +139,10 @@ export class BookingSectionComponent implements OnInit {
     return currentIndex !== -1 && currentIndex < months.length - 1;
   });
   protected readonly canGoToPreviousDate = computed(() => {
-    const currentDateKey = this.selectedDateKey();
-    return currentDateKey ? this.availableDateKeys().indexOf(currentDateKey) > 0 : false;
+    return Boolean(this.selectedDateKey());
   });
   protected readonly canGoToNextDate = computed(() => {
-    const currentDateKey = this.selectedDateKey();
-    const availableDateKeys = this.availableDateKeys();
-    const currentIndex = currentDateKey ? availableDateKeys.indexOf(currentDateKey) : -1;
-    return currentIndex !== -1 && currentIndex < availableDateKeys.length - 1;
+    return Boolean(this.selectedDateKey());
   });
 
   protected readonly canSubmit = computed(() => {
@@ -189,10 +179,6 @@ export class BookingSectionComponent implements OnInit {
   }
 
   protected selectDay(day: BookingDayView): void {
-    if (!day.available) {
-      return;
-    }
-
     this.selectedDateKey.set(day.dateKey);
     this.syncSelectedSlot();
   }
@@ -308,17 +294,17 @@ export class BookingSectionComponent implements OnInit {
   }
 
   private syncSelectedDate(): void {
-    const availableMonthKeys = new Set(this.months().map((month) => month.key));
+    const currentDateKey = this.selectedDateKey();
+    const selectedMonthKey = this.selectedMonthKey();
 
-    if (!availableMonthKeys.has(this.selectedMonthKey())) {
-      this.selectedMonthKey.set(this.months()[0]?.key ?? this.toMonthKey(new Date()));
+    if (!currentDateKey) {
+      this.selectedDateKey.set(this.defaultDateKeyForMonth(selectedMonthKey));
+      this.syncSelectedSlot();
+      return;
     }
 
-    const currentDateKey = this.selectedDateKey();
-    const availableDays = this.days().filter((day) => day.available);
-
-    if (!currentDateKey || !availableDays.some((day) => day.dateKey === currentDateKey)) {
-      this.selectedDateKey.set(availableDays[0]?.dateKey ?? null);
+    if (currentDateKey.slice(0, 7) !== selectedMonthKey) {
+      this.selectedDateKey.set(this.alignDateKeyToMonth(currentDateKey, selectedMonthKey));
     }
 
     this.syncSelectedSlot();
@@ -346,13 +332,9 @@ export class BookingSectionComponent implements OnInit {
       return;
     }
 
-    const availableDateKeys = this.availableDateKeys();
-    const currentIndex = availableDateKeys.indexOf(currentDateKey);
-    const nextDateKey = availableDateKeys[currentIndex + direction];
-
-    if (!nextDateKey) {
-      return;
-    }
+    const nextDate = this.fromDateKey(currentDateKey);
+    nextDate.setDate(nextDate.getDate() + direction);
+    const nextDateKey = this.toDateKey(nextDate);
 
     const nextMonthKey = nextDateKey.slice(0, 7);
     this.selectedMonthKey.set(nextMonthKey);
@@ -364,9 +346,39 @@ export class BookingSectionComponent implements OnInit {
     const currentSlotId = this.selectedSlotId();
     const slots = this.timeSlots();
 
+    if (!slots.length) {
+      this.selectedSlotId.set(null);
+      return;
+    }
+
     if (!currentSlotId || !slots.some((slot) => slot.id === currentSlotId)) {
       this.selectedSlotId.set(slots[0]?.id ?? null);
     }
+  }
+
+  private defaultDateKeyForMonth(monthKey: string): string {
+    const today = new Date();
+
+    if (this.toMonthKey(today) === monthKey) {
+      return this.toDateKey(today);
+    }
+
+    const [year, month] = monthKey.split('-').map(Number);
+    return this.toDateKey(new Date(year, month - 1, 1));
+  }
+
+  private alignDateKeyToMonth(dateKey: string, monthKey: string): string {
+    const currentDate = this.fromDateKey(dateKey);
+    const [year, month] = monthKey.split('-').map(Number);
+    const lastDay = new Date(year, month, 0).getDate();
+    const day = Math.min(currentDate.getDate(), lastDay);
+
+    return this.toDateKey(new Date(year, month - 1, day));
+  }
+
+  private fromDateKey(dateKey: string): Date {
+    const [year, month, day] = dateKey.split('-').map(Number);
+    return new Date(year, month - 1, day);
   }
 
   private toMonthKey(date: Date): string {

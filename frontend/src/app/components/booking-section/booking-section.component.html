@@ -105,7 +105,6 @@
               [class.outside]="!day.currentMonth"
               [class.active]="day.active"
               [class.available]="day.available"
-              [disabled]="!day.available"
               (click)="selectDay(day)"
             >
               {{ day.label }}

@@ -209,14 +209,17 @@ input:focus-visible {
   background: transparent;
   color: #1c1b1b;
   border: 1px solid transparent;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
-.day-button:disabled {
-  cursor: not-allowed;
+.day-button:hover {
+  border-color: rgba(195, 201, 186, 0.8);
+  background: rgba(240, 237, 237, 0.65);
 }
 
 .day-button.outside {
-  color: #c3c9ba;
+  color: #a8aea0;
+  opacity: 0.8;
 }
 
 .day-button.available {
