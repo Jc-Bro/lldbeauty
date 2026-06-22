@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AdminSidebarComponent } from '../../components/admin-sidebar/admin-sidebar.component';
 import { AdminAuthService } from '../../services/admin-auth.service';
 
@@ -23,9 +24,16 @@ interface AvailabilitySlotRecord {
   appointments: Array<{ id: string; status: string }>;
 }
 
+interface SlotFormState {
+  date: string;
+  startTime: string;
+  endTime: string;
+  serviceName: string;
+}
+
 @Component({
   selector: 'app-admin-slots',
-  imports: [CommonModule, AdminSidebarComponent],
+  imports: [CommonModule, FormsModule, AdminSidebarComponent],
   templateUrl: './admin-slots.component.html',
   styleUrl: './admin-slots.component.css',
 })
@@ -39,6 +47,19 @@ export class AdminSlotsComponent implements OnInit {
   protected readonly recentSlotsError = signal('');
   protected readonly recentSlots = signal<RecentSlot[]>([]);
   protected readonly hasRecentSlots = computed(() => this.recentSlots().length > 0);
+  protected readonly formState = signal<SlotFormState>({
+    date: '',
+    startTime: '',
+    endTime: '',
+    serviceName: '',
+  });
+  protected readonly isSubmitting = signal(false);
+  protected readonly createSuccessMessage = signal('');
+  protected readonly createErrorMessage = signal('');
+  protected readonly canSubmit = computed(() => {
+    const form = this.formState();
+    return Boolean(form.date && form.startTime && form.endTime && !this.isSubmitting());
+  });
 
   ngOnInit(): void {
     this.loadRecentSlots();
@@ -46,6 +67,65 @@ export class AdminSlotsComponent implements OnInit {
 
   protected setRecurrence(mode: RecurrenceMode): void {
     this.recurrence.set(mode);
+  }
+
+  protected updateField(field: keyof SlotFormState, value: string): void {
+    this.formState.update((current) => ({ ...current, [field]: value }));
+  }
+
+  protected createSlot(): void {
+    this.createSuccessMessage.set('');
+    this.createErrorMessage.set('');
+
+    if (!this.canSubmit()) {
+      this.createErrorMessage.set('Merci de renseigner la date, l\'heure de debut et l\'heure de fin.');
+      return;
+    }
+
+    const token = this.adminAuth.getToken();
+
+    if (!token) {
+      this.createErrorMessage.set('Connectez-vous pour creer un creneau.');
+      return;
+    }
+
+    const form = this.formState();
+    const startAt = new Date(`${form.date}T${form.startTime}`);
+    const endAt = new Date(`${form.date}T${form.endTime}`);
+
+    if (Number.isNaN(startAt.getTime()) || Number.isNaN(endAt.getTime())) {
+      this.createErrorMessage.set('Les dates ou horaires saisis sont invalides.');
+      return;
+    }
+
+    this.isSubmitting.set(true);
+
+    this.http
+      .post<AvailabilitySlotRecord>(
+        this.apiUrl,
+        {
+          startAt: startAt.toISOString(),
+          endAt: endAt.toISOString(),
+          serviceName: form.serviceName.trim() || undefined,
+          recurrenceType: this.toRecurrenceType(this.recurrence()),
+        },
+        { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) },
+      )
+      .subscribe({
+        next: () => {
+          this.createSuccessMessage.set('Le creneau a bien ete enregistre.');
+          this.formState.set({ date: '', startTime: '', endTime: '', serviceName: '' });
+          this.recurrence.set('none');
+          this.isSubmitting.set(false);
+          this.loadRecentSlots();
+        },
+        error: (error) => {
+          this.isSubmitting.set(false);
+          this.createErrorMessage.set(
+            error?.error?.message ?? 'Impossible d\'enregistrer ce creneau pour le moment.',
+          );
+        },
+      });
   }
 
   protected deleteSlot(slotId: string): void {
@@ -103,6 +183,18 @@ export class AdminSlotsComponent implements OnInit {
           this.recentSlotsError.set('Impossible de charger les creneaux recents.');
         },
       });
+  }
+
+  private toRecurrenceType(mode: RecurrenceMode): 'NONE' | 'DAILY' | 'WEEKLY' {
+    if (mode === 'daily') {
+      return 'DAILY';
+    }
+
+    if (mode === 'weekly') {
+      return 'WEEKLY';
+    }
+
+    return 'NONE';
   }
 
   private toRecentSlot(slot: AvailabilitySlotRecord): RecentSlot {

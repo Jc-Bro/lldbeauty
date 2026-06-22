@@ -22,23 +22,33 @@
         <h3>Creer des creneaux</h3>
       </div>
 
-      <form class="slot-form">
+      <form class="slot-form" (submit)="$event.preventDefault(); createSlot()">
         <label>
           <span>Date de debut</span>
-          <input type="date" />
+          <input type="date" [ngModel]="formState().date" (ngModelChange)="updateField('date', $event)" name="date" />
         </label>
 
         <div class="time-grid">
           <label>
             <span>Heure de debut</span>
-            <input type="time" />
+            <input type="time" [ngModel]="formState().startTime" (ngModelChange)="updateField('startTime', $event)" name="startTime" />
           </label>
 
           <label>
             <span>Heure de fin</span>
-            <input type="time" />
+            <input type="time" [ngModel]="formState().endTime" (ngModelChange)="updateField('endTime', $event)" name="endTime" />
           </label>
         </div>
+
+        <label>
+          <span>Service (optionnel)</span>
+          <input
+            type="text"
+            [ngModel]="formState().serviceName"
+            (ngModelChange)="updateField('serviceName', $event)"
+            name="serviceName"
+          />
+        </label>
 
         <div class="recurrence-group">
           <span>Recurrence</span>
@@ -67,7 +77,12 @@
           </div>
         </div>
 
-        <button type="button" class="save-button">Enregistrer les creneaux</button>
+        <p class="form-feedback success" *ngIf="createSuccessMessage()">{{ createSuccessMessage() }}</p>
+        <p class="form-feedback error" *ngIf="createErrorMessage()">{{ createErrorMessage() }}</p>
+
+        <button type="submit" class="save-button" [disabled]="!canSubmit()">
+          {{ isSubmitting() ? 'Enregistrement...' : 'Enregistrer les creneaux' }}
+        </button>
       </form>
     </section>
 

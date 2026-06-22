@@ -118,6 +118,19 @@
   border-bottom: 2px solid #426830;
 }
 
+.form-feedback {
+  margin: -12px 0 0;
+  font-size: 0.9rem;
+}
+
+.form-feedback.success {
+  color: #426830;
+}
+
+.form-feedback.error {
+  color: #8c3b32;
+}
+
 .time-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -153,6 +166,11 @@
   background: #4b663d;
   color: #ffffff;
   font-weight: 700;
+}
+
+.save-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .preview-controls {

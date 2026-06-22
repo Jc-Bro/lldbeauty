@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { AppointmentStatus, Prisma, RecurrenceType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -29,10 +29,21 @@ export class AvailabilityService {
   }
 
   createSlot(input: CreateAvailabilitySlotInput) {
+    const startAt = new Date(input.startAt);
+    const endAt = new Date(input.endAt);
+
+    if (Number.isNaN(startAt.getTime()) || Number.isNaN(endAt.getTime())) {
+      throw new BadRequestException('Invalid slot date or time');
+    }
+
+    if (endAt.getTime() <= startAt.getTime()) {
+      throw new BadRequestException('Slot end time must be after start time');
+    }
+
     const data: Prisma.AvailabilitySlotCreateInput = {
-      serviceName: input.serviceName,
-      startAt: new Date(input.startAt),
-      endAt: new Date(input.endAt),
+      serviceName: input.serviceName?.trim() || undefined,
+      startAt,
+      endAt,
       recurrenceType: input.recurrenceType ?? RecurrenceType.NONE,
     };
 
