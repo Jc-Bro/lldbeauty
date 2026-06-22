@@ -31,6 +31,13 @@ interface SlotFormState {
   serviceName: string;
 }
 
+interface PreviewWeekDay {
+  label: string;
+  dayNumber: string;
+  isoDate: string;
+  isToday: boolean;
+}
+
 @Component({
   selector: 'app-admin-slots',
   imports: [CommonModule, FormsModule, AdminSidebarComponent],
@@ -47,6 +54,22 @@ export class AdminSlotsComponent implements OnInit {
   protected readonly recentSlotsError = signal('');
   protected readonly recentSlots = signal<RecentSlot[]>([]);
   protected readonly hasRecentSlots = computed(() => this.recentSlots().length > 0);
+  protected readonly currentWeekStart = signal(this.startOfWeek(new Date()));
+  protected readonly previewWeekDays = computed<PreviewWeekDay[]>(() => {
+    const weekStart = this.currentWeekStart();
+
+    return Array.from({ length: 7 }, (_, index) => {
+      const date = new Date(weekStart);
+      date.setDate(weekStart.getDate() + index);
+
+      return {
+        label: new Intl.DateTimeFormat('fr-FR', { weekday: 'short' }).format(date),
+        dayNumber: new Intl.DateTimeFormat('fr-FR', { day: 'numeric' }).format(date),
+        isoDate: this.toDateKey(date),
+        isToday: this.toDateKey(date) === this.toDateKey(new Date()),
+      };
+    });
+  });
   protected readonly formState = signal<SlotFormState>({
     date: '',
     startTime: '',
@@ -67,6 +90,18 @@ export class AdminSlotsComponent implements OnInit {
 
   protected setRecurrence(mode: RecurrenceMode): void {
     this.recurrence.set(mode);
+  }
+
+  protected previousWeek(): void {
+    const nextValue = new Date(this.currentWeekStart());
+    nextValue.setDate(nextValue.getDate() - 7);
+    this.currentWeekStart.set(this.startOfWeek(nextValue));
+  }
+
+  protected nextWeek(): void {
+    const nextValue = new Date(this.currentWeekStart());
+    nextValue.setDate(nextValue.getDate() + 7);
+    this.currentWeekStart.set(this.startOfWeek(nextValue));
   }
 
   protected updateField(field: keyof SlotFormState, value: string): void {
@@ -197,6 +232,14 @@ export class AdminSlotsComponent implements OnInit {
     return 'NONE';
   }
 
+  private startOfWeek(date: Date): Date {
+    const normalized = new Date(date);
+    const dayIndex = (normalized.getDay() + 6) % 7;
+    normalized.setHours(0, 0, 0, 0);
+    normalized.setDate(normalized.getDate() - dayIndex);
+    return normalized;
+  }
+
   private toRecentSlot(slot: AvailabilitySlotRecord): RecentSlot {
     const startAt = new Date(slot.startAt);
     const endAt = new Date(slot.endAt);
@@ -223,6 +266,12 @@ export class AdminSlotsComponent implements OnInit {
       minute: '2-digit',
       hour12: false,
     }).format(date);
+  }
+
+  private toDateKey(date: Date): string {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+      date.getDate(),
+    ).padStart(2, '0')}`;
   }
 
   private setDeletingState(slotId: string, isDeleting: boolean): void {
