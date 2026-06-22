@@ -1,0 +1,21 @@
+:root {
+  color-scheme: light;
+  font-family: Georgia, "Times New Roman", serif;
+  background:
+    radial-gradient(circle at top, rgba(255, 214, 170, 0.55), transparent 34%),
+    linear-gradient(160deg, #fff6ee 0%, #f9e4d0 52%, #efc8a3 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
