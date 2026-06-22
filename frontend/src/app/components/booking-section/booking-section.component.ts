@@ -1,14 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, signal } from '@angular/core';
-import { BookingDay, BookingMonth, BookingServiceOption } from '../../client-data/site-content';
+import { FormsModule } from '@angular/forms';
+import { Component, OnInit, computed, inject, input, signal } from '@angular/core';
+import { BookingServiceOption } from '../../client-data/site-content';
+import {
+  AvailabilitySlotRecord,
+  BookingApiService,
+  CreateAppointmentPayload,
+} from '../../services/booking-api.service';
+
+interface BookingMonthView {
+  key: string;
+  label: string;
+}
+
+interface BookingDayView {
+  label: string;
+  dateKey: string;
+  currentMonth: boolean;
+  active: boolean;
+  available: boolean;
+}
+
+interface BookingFormState {
+  clientName: string;
+  clientFirstName: string;
+  clientPhone: string;
+  clientEmail: string;
+  serviceName: string;
+}
 
 @Component({
   selector: 'app-booking-section',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './booking-section.component.html',
   styleUrl: './booking-section.component.css',
 })
-export class BookingSectionComponent {
+export class BookingSectionComponent implements OnInit {
+  private readonly bookingApi = inject(BookingApiService);
+
   readonly intro = input.required<{
     title: string;
     description: string;
@@ -17,20 +46,289 @@ export class BookingSectionComponent {
   }>();
 
   readonly serviceOptions = input.required<BookingServiceOption[]>();
-  readonly months = input.required<BookingMonth[]>();
   readonly weekdays = input.required<string[]>();
-  readonly days = input.required<BookingDay[]>();
-  readonly timeSlots = input.required<string[]>();
 
-  protected readonly selectedMonthIndex = signal(0);
-  protected readonly selectedSlot = signal<string | null>(null);
-  protected readonly defaultService = computed(() => this.serviceOptions()[0]?.label ?? '');
+  protected readonly loading = signal(true);
+  protected readonly submitting = signal(false);
+  protected readonly errorMessage = signal('');
+  protected readonly successMessage = signal('');
+  protected readonly availableSlots = signal<AvailabilitySlotRecord[]>([]);
+  protected readonly selectedMonthKey = signal(this.toMonthKey(new Date()));
+  protected readonly selectedDateKey = signal<string | null>(null);
+  protected readonly selectedSlotId = signal<string | null>(null);
+  protected readonly bookingForm = signal<BookingFormState>({
+    clientName: '',
+    clientFirstName: '',
+    clientPhone: '',
+    clientEmail: '',
+    serviceName: '',
+  });
 
-  protected selectMonth(index: number): void {
-    this.selectedMonthIndex.set(index);
+  protected readonly months = computed<BookingMonthView[]>(() => {
+    const monthMap = new Map<string, BookingMonthView>();
+
+    monthMap.set(this.toMonthKey(new Date()), {
+      key: this.toMonthKey(new Date()),
+      label: this.formatMonthLabel(new Date()),
+    });
+
+    for (const slot of this.filteredReservableSlots()) {
+      const slotDate = new Date(slot.startAt);
+      monthMap.set(this.toMonthKey(slotDate), {
+        key: this.toMonthKey(slotDate),
+        label: this.formatMonthLabel(slotDate),
+      });
+    }
+
+    return Array.from(monthMap.values()).sort((left, right) => left.key.localeCompare(right.key));
+  });
+
+  protected readonly days = computed<BookingDayView[]>(() => {
+    const monthKey = this.selectedMonthKey();
+    const [year, month] = monthKey.split('-').map(Number);
+    const firstDay = new Date(year, month - 1, 1);
+    const lastDay = new Date(year, month, 0);
+    const monthStartIndex = (firstDay.getDay() + 6) % 7;
+    const gridStart = new Date(firstDay);
+    gridStart.setDate(firstDay.getDate() - monthStartIndex);
+    const monthEndIndex = (7 - ((lastDay.getDay() + 6) % 7) - 1 + 7) % 7;
+    const gridEnd = new Date(lastDay);
+    gridEnd.setDate(lastDay.getDate() + monthEndIndex);
+    const days: BookingDayView[] = [];
+
+    for (const cursor = new Date(gridStart); cursor <= gridEnd; cursor.setDate(cursor.getDate() + 1)) {
+      const dateKey = this.toDateKey(cursor);
+      days.push({
+        label: String(cursor.getDate()),
+        dateKey,
+        currentMonth: cursor.getMonth() === month - 1,
+        active: this.selectedDateKey() === dateKey,
+        available: this.dateSlots(dateKey).length > 0,
+      });
+    }
+
+    return days;
+  });
+
+  protected readonly timeSlots = computed(() =>
+    this.dateSlots(this.selectedDateKey()).map((slot) => ({
+      id: slot.id,
+      label: this.formatSlotLabel(slot.startAt),
+    })),
+  );
+
+  protected readonly availabilityLabel = computed(() => {
+    const selectedDateKey = this.selectedDateKey();
+
+    if (!selectedDateKey) {
+      return `${this.intro().availabilityLabel} une date`;
+    }
+
+    return `${this.intro().availabilityLabel} ${this.formatLongDate(selectedDateKey)}`;
+  });
+
+  protected readonly canSubmit = computed(() => {
+    const form = this.bookingForm();
+
+    return Boolean(
+      form.clientName.trim() &&
+        form.clientFirstName.trim() &&
+        form.clientPhone.trim() &&
+        form.clientEmail.trim() &&
+        form.serviceName.trim() &&
+        this.selectedSlotId() &&
+        !this.submitting(),
+    );
+  });
+
+  ngOnInit(): void {
+    const defaultService = this.serviceOptions()[0]?.label ?? '';
+    this.bookingForm.update((current) => ({ ...current, serviceName: defaultService }));
+    this.loadSlots();
   }
 
-  protected selectSlot(slot: string): void {
-    this.selectedSlot.set(slot);
+  protected selectMonth(monthKey: string): void {
+    this.selectedMonthKey.set(monthKey);
+    this.syncSelectedDate();
+  }
+
+  protected selectDay(day: BookingDayView): void {
+    if (!day.available) {
+      return;
+    }
+
+    this.selectedDateKey.set(day.dateKey);
+    this.syncSelectedSlot();
+  }
+
+  protected selectSlot(slotId: string): void {
+    this.selectedSlotId.set(slotId);
+  }
+
+  protected updateServiceName(serviceName: string): void {
+    this.bookingForm.update((current) => ({ ...current, serviceName }));
+    this.syncSelectedDate();
+  }
+
+  protected updateField(field: keyof BookingFormState, value: string): void {
+    this.bookingForm.update((current) => ({ ...current, [field]: value }));
+  }
+
+  protected confirmBooking(): void {
+    this.errorMessage.set('');
+    this.successMessage.set('');
+
+    if (!this.canSubmit()) {
+      this.errorMessage.set(
+        'Merci de renseigner votre nom, votre prenom, votre telephone, votre email et de choisir un creneau.',
+      );
+      return;
+    }
+
+    const selectedSlot = this.dateSlots(this.selectedDateKey()).find(
+      (slot) => slot.id === this.selectedSlotId(),
+    );
+
+    if (!selectedSlot) {
+      this.errorMessage.set('Le creneau selectionne n\'est plus disponible.');
+      return;
+    }
+
+    const form = this.bookingForm();
+    const payload: CreateAppointmentPayload = {
+      clientName: form.clientName.trim(),
+      clientFirstName: form.clientFirstName.trim(),
+      clientPhone: form.clientPhone.trim(),
+      clientEmail: form.clientEmail.trim(),
+      serviceName: form.serviceName.trim(),
+      appointmentDate: selectedSlot.startAt,
+      startTime: this.formatTime(selectedSlot.startAt),
+      endTime: this.formatTime(selectedSlot.endAt),
+      slotId: selectedSlot.id,
+    };
+
+    this.submitting.set(true);
+    this.bookingApi.createAppointment(payload).subscribe({
+      next: () => {
+        this.successMessage.set('Votre rendez-vous est enregistre.');
+        this.bookingForm.update((current) => ({
+          ...current,
+          clientName: '',
+          clientFirstName: '',
+          clientPhone: '',
+          clientEmail: '',
+        }));
+        this.loadSlots();
+      },
+      error: () => {
+        this.errorMessage.set('Impossible d\'enregistrer le rendez-vous pour le moment.');
+        this.submitting.set(false);
+      },
+    });
+  }
+
+  private loadSlots(): void {
+    this.loading.set(true);
+    this.errorMessage.set('');
+    this.bookingApi.getAvailabilitySlots().subscribe({
+      next: (slots) => {
+        this.availableSlots.set(slots);
+        this.loading.set(false);
+        this.syncSelectedDate();
+        this.submitting.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.errorMessage.set('Impossible de charger les disponibilites.');
+      },
+    });
+  }
+
+  private filteredReservableSlots(): AvailabilitySlotRecord[] {
+    const now = Date.now();
+    const selectedService = this.bookingForm().serviceName.trim();
+
+    return this.availableSlots()
+      .filter((slot) => new Date(slot.startAt).getTime() >= now)
+      .filter((slot) => slot.appointments.every((appointment) => appointment.status === 'CANCELLED'))
+      .filter((slot) => !slot.serviceName || !selectedService || slot.serviceName === selectedService)
+      .sort((left, right) => left.startAt.localeCompare(right.startAt));
+  }
+
+  private dateSlots(dateKey: string | null): AvailabilitySlotRecord[] {
+    if (!dateKey) {
+      return [];
+    }
+
+    return this.filteredReservableSlots().filter((slot) => this.toDateKey(new Date(slot.startAt)) === dateKey);
+  }
+
+  private syncSelectedDate(): void {
+    const availableMonthKeys = new Set(this.months().map((month) => month.key));
+
+    if (!availableMonthKeys.has(this.selectedMonthKey())) {
+      this.selectedMonthKey.set(this.months()[0]?.key ?? this.toMonthKey(new Date()));
+    }
+
+    const currentDateKey = this.selectedDateKey();
+    const availableDays = this.days().filter((day) => day.available);
+
+    if (!currentDateKey || !availableDays.some((day) => day.dateKey === currentDateKey)) {
+      this.selectedDateKey.set(availableDays[0]?.dateKey ?? null);
+    }
+
+    this.syncSelectedSlot();
+  }
+
+  private syncSelectedSlot(): void {
+    const currentSlotId = this.selectedSlotId();
+    const slots = this.timeSlots();
+
+    if (!currentSlotId || !slots.some((slot) => slot.id === currentSlotId)) {
+      this.selectedSlotId.set(slots[0]?.id ?? null);
+    }
+  }
+
+  private toMonthKey(date: Date): string {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+  }
+
+  private toDateKey(date: Date): string {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+      date.getDate(),
+    ).padStart(2, '0')}`;
+  }
+
+  private formatMonthLabel(date: Date): string {
+    return new Intl.DateTimeFormat('fr-FR', {
+      month: 'long',
+      year: 'numeric',
+    }).format(date);
+  }
+
+  private formatLongDate(dateKey: string): string {
+    const [year, month, day] = dateKey.split('-').map(Number);
+
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date(year, month - 1, day));
+  }
+
+  private formatSlotLabel(value: string): string {
+    return new Intl.DateTimeFormat('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(new Date(value));
+  }
+
+  private formatTime(value: string): string {
+    return new Intl.DateTimeFormat('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(new Date(value));
   }
 }

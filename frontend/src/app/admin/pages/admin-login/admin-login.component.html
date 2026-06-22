@@ -1,0 +1,86 @@
+<div class="login-page">
+  <div class="atmosphere atmosphere-left"></div>
+  <div class="atmosphere atmosphere-right"></div>
+
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="login-branding">
+        <h1>LLDBeauty</h1>
+        <p>Back-Office Studio</p>
+      </div>
+
+      <form class="login-form" (ngSubmit)="submit()">
+        <label class="field">
+          <span>
+            <span class="material-symbols-outlined">mail</span>
+            Nom d'utilisateur
+          </span>
+          <input
+            [(ngModel)]="username"
+            name="username"
+            placeholder="admin"
+            required
+            type="text"
+          />
+        </label>
+
+        <label class="field">
+          <span>
+            <span class="material-symbols-outlined">lock</span>
+            Mot de passe
+          </span>
+          <div class="password-field">
+            <input
+              [(ngModel)]="password"
+              name="password"
+              placeholder="admin"
+              required
+              [type]="showPassword() ? 'text' : 'password'"
+            />
+            <button type="button" (click)="togglePasswordVisibility()">
+              <span class="material-symbols-outlined">
+                {{ showPassword() ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+        </label>
+
+        <div class="field-row">
+          <label class="remember-me">
+            <input type="checkbox" />
+            <span>Se souvenir de moi</span>
+          </label>
+
+          <a href="#">Mot de passe oublie ?</a>
+        </div>
+
+        <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+
+        <button class="submit-button" type="submit" [disabled]="isLoading()">
+          <span>{{ isLoading() ? 'Connexion...' : 'Connexion au Back-Office' }}</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </form>
+
+      <p class="login-footer">© 2024 LLDBeauty Studio. Tous droits reserves.</p>
+    </section>
+
+    <div class="brand-icons">
+      <span class="material-symbols-outlined">spa</span>
+      <span class="dot"></span>
+      <span class="material-symbols-outlined">eco</span>
+      <span class="dot"></span>
+      <span class="material-symbols-outlined">content_cut</span>
+    </div>
+  </main>
+
+  <div class="success-overlay" *ngIf="isSuccessVisible()">
+    <div class="success-card">
+      <div class="success-icon">
+        <span class="material-symbols-outlined">check</span>
+      </div>
+      <h2>Bienvenue</h2>
+      <p>Preparation de votre espace de travail...</p>
+    </div>
+  </div>
+</div>

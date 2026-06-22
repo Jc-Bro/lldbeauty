@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import {
-  bookingDays,
   bookingIntro,
-  bookingMonths,
   bookingServiceOptions,
-  bookingTimeSlots,
   bookingWeekdays,
   contactDetails,
   contactIntro,
@@ -49,10 +46,7 @@ export class HomeComponent {
   protected readonly gallery = galleryItems;
   protected readonly bookingIntro = bookingIntro;
   protected readonly bookingServiceOptions = bookingServiceOptions;
-  protected readonly bookingMonths = bookingMonths;
   protected readonly bookingWeekdays = bookingWeekdays;
-  protected readonly bookingDays = bookingDays;
-  protected readonly bookingTimeSlots = bookingTimeSlots;
   protected readonly contactIntro = contactIntro;
   protected readonly contactDetails = contactDetails;
   protected readonly footerBrand = footerBrand;

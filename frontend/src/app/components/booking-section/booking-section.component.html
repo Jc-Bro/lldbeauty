@@ -10,22 +10,73 @@
 
           <div class="field-group">
             <label for="service-select">Service souhaite</label>
-            <select id="service-select" [value]="defaultService()">
+            <select
+              id="service-select"
+              [ngModel]="bookingForm().serviceName"
+              (ngModelChange)="updateServiceName($event)"
+              name="serviceName"
+            >
               <option *ngFor="let option of serviceOptions()" [value]="option.label">
                 {{ option.label }}
               </option>
             </select>
           </div>
 
+          <div class="field-group form-grid">
+            <div>
+              <label for="client-name">Nom</label>
+              <input
+                id="client-name"
+                type="text"
+                [ngModel]="bookingForm().clientName"
+                (ngModelChange)="updateField('clientName', $event)"
+                name="clientName"
+              />
+            </div>
+
+            <div>
+              <label for="client-first-name">Prenom</label>
+              <input
+                id="client-first-name"
+                type="text"
+                [ngModel]="bookingForm().clientFirstName"
+                (ngModelChange)="updateField('clientFirstName', $event)"
+                name="clientFirstName"
+              />
+            </div>
+
+            <div>
+              <label for="client-phone">Numero de telephone</label>
+              <input
+                id="client-phone"
+                type="tel"
+                [ngModel]="bookingForm().clientPhone"
+                (ngModelChange)="updateField('clientPhone', $event)"
+                name="clientPhone"
+              />
+            </div>
+
+            <div>
+              <label for="client-email">Email</label>
+              <input
+                id="client-email"
+                type="email"
+                [ngModel]="bookingForm().clientEmail"
+                (ngModelChange)="updateField('clientEmail', $event)"
+                name="clientEmail"
+              />
+            </div>
+          </div>
+
           <div class="field-group">
             <label>Mois</label>
             <div class="month-list">
               <button
-                *ngFor="let month of months(); let index = index"
+                *ngFor="let month of months()"
                 type="button"
                 class="month-chip"
-                [class.active]="selectedMonthIndex() === index"
-                (click)="selectMonth(index)"
+                [class.active]="selectedMonthKey() === month.key"
+                (click)="selectMonth(month.key)"
               >
                 {{ month.label }}
               </button>
@@ -44,28 +95,43 @@
               type="button"
               class="day-button"
               [class.outside]="!day.currentMonth"
-              [class.active]="!!day.active"
+              [class.active]="day.active"
+              [class.available]="day.available"
+              [disabled]="!day.available"
+              (click)="selectDay(day)"
             >
               {{ day.label }}
             </button>
           </div>
 
           <div class="slots-panel">
-            <span class="slots-title">{{ intro().availabilityLabel }}</span>
+            <span class="slots-title">{{ availabilityLabel() }}</span>
             <div class="slots-grid">
               <button
                 *ngFor="let slot of timeSlots()"
                 type="button"
                 class="slot-button"
-                [class.selected]="selectedSlot() === slot"
-                (click)="selectSlot(slot)"
+                [class.selected]="selectedSlotId() === slot.id"
+                (click)="selectSlot(slot.id)"
               >
-                {{ slot }}
+                {{ slot.label }}
               </button>
             </div>
+            <p class="state-message" *ngIf="loading()">Chargement des creneaux...</p>
+            <p class="state-message" *ngIf="!loading() && selectedDateKey() && !timeSlots().length">
+              Aucun creneau disponible pour cette date.
+            </p>
           </div>
 
-          <button type="button" class="confirm-button">
+          <p class="feedback error" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+          <p class="feedback success" *ngIf="successMessage()">{{ successMessage() }}</p>
+
+          <button
+            type="button"
+            class="confirm-button"
+            [disabled]="!canSubmit()"
+            (click)="confirmBooking()"
+          >
             {{ intro().confirmationLabel }}
           </button>
         </div>

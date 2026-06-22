@@ -78,8 +78,32 @@ select {
   box-shadow: inset 0 0 0 1px transparent;
 }
 
+input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 14px;
+  background: #f0eded;
+  color: #1c1b1b;
+  font: inherit;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 0 1px transparent;
+}
+
 select:focus-visible {
   box-shadow: inset 0 0 0 1px rgba(66, 104, 48, 0.25);
+}
+
+input:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(66, 104, 48, 0.25);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .month-list {
@@ -140,8 +164,17 @@ select:focus-visible {
   border: 1px solid transparent;
 }
 
+.day-button:disabled {
+  cursor: not-allowed;
+}
+
 .day-button.outside {
   color: #c3c9ba;
+}
+
+.day-button.available {
+  border-color: rgba(126, 168, 104, 0.45);
+  background: rgba(126, 168, 104, 0.08);
 }
 
 .day-button.active {
@@ -189,13 +222,37 @@ select:focus-visible {
   box-shadow: 0 14px 30px rgba(126, 168, 104, 0.18);
 }
 
+.confirm-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
 .confirm-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 18px 36px rgba(126, 168, 104, 0.22);
 }
 
+.state-message,
+.feedback {
+  margin: 14px 0 0;
+  font-size: 0.9rem;
+}
+
+.feedback.error {
+  color: #8c3b32;
+}
+
+.feedback.success {
+  color: #426830;
+}
+
 @media (max-width: 960px) {
   .booking-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
     grid-template-columns: 1fr;
   }
 }

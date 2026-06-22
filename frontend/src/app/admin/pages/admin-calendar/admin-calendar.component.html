@@ -1,0 +1,86 @@
+<app-admin-sidebar active="calendar" />
+
+<main class="admin-page">
+  <header class="page-header">
+    <div>
+      <h2>Agenda du Studio</h2>
+      <p>Gerez vos rendez-vous et votre disponibilite.</p>
+    </div>
+
+    <div class="header-actions">
+      <div class="view-switcher">
+        <button class="active" type="button">Semaine</button>
+        <button type="button">Mois</button>
+      </div>
+
+      <div class="range-controls">
+        <button type="button" class="icon-button" (click)="previousWeek()">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <span>{{ weekLabel() }}</span>
+        <button type="button" class="icon-button" (click)="nextWeek()">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+
+      <a routerLink="/admin/slots" class="create-button">
+        <span class="material-symbols-outlined">event_available</span>
+        <span>Creer un creneau</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="calendar-card">
+    <div class="calendar-header calendar-grid">
+      <div class="hour-cell title-cell">Heure</div>
+      <div
+        *ngFor="let day of weekDays()"
+        class="day-head"
+        [class.is-today]="day.isToday"
+        [class.is-muted]="day.isWeekend"
+      >
+        <span>{{ day.label }}</span><strong>{{ day.dayNumber }}</strong>
+      </div>
+    </div>
+
+    <div class="calendar-body">
+      <div class="calendar-grid body-grid" *ngFor="let hour of hours">
+        <div class="hour-cell">{{ hour }}</div>
+        <div class="slot-cell" *ngFor="let day of [0,1,2,3,4,5,6]"></div>
+      </div>
+
+      <div
+        *ngFor="let appointment of appointmentCards()"
+        class="appointment-card"
+        [ngClass]="appointment.status"
+        [ngStyle]="appointmentStyle(appointment)"
+      >
+        <div class="appointment-top">
+          <span class="name">{{ appointment.customer }}</span>
+          <span class="material-symbols-outlined">more_vert</span>
+        </div>
+        <span class="service">{{ appointment.service }}</span>
+        <div class="appointment-time">
+          <span class="material-symbols-outlined">schedule</span>
+          <span>{{ appointment.time }}</span>
+        </div>
+      </div>
+
+      <p class="calendar-state" *ngIf="loading()">Chargement des rendez-vous...</p>
+      <p class="calendar-state error" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+      <p class="calendar-state" *ngIf="!loading() && !errorMessage() && !appointmentCards().length">
+        Aucun rendez-vous client enregistre sur cette semaine.
+      </p>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div class="legend">
+      <span><i class="pending-dot"></i>En attente</span>
+      <span><i class="confirmed-dot"></i>Confirme</span>
+      <span><i class="completed-dot"></i>Termine</span>
+      <span><i class="cancelled-dot"></i>Annule</span>
+    </div>
+    <p>© 2024 Lumiere Lash & Aesthetics. Studio Management System v2.4.</p>
+  </footer>
+</main>

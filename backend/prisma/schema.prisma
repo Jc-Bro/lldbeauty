@@ -7,3 +7,46 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum RecurrenceType {
+  NONE
+  DAILY
+  WEEKLY
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model AvailabilitySlot {
+  id             String           @id @default(cuid())
+  serviceName    String?
+  startAt        DateTime
+  endAt          DateTime
+  recurrenceType RecurrenceType   @default(NONE)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  appointments   Appointment[]
+}
+
+model Appointment {
+  id              String            @id @default(cuid())
+  clientName      String
+  clientFirstName String
+  clientPhone     String
+  clientEmail     String
+  serviceName     String
+  appointmentDate DateTime
+  startTime       String
+  endTime         String
+  status          AppointmentStatus @default(PENDING)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  slotId          String?
+  slot            AvailabilitySlot? @relation(fields: [slotId], references: [id], onDelete: SetNull)
+
+  @@index([slotId])
+}

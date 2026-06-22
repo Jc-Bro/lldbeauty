@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
+import { AppointmentsModule } from './appointments/appointments.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { AvailabilityModule } from './availability/availability.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { getAdminPanelModule } from './admin/admin.module';
-
-const optionalImports =
-  process.env.NODE_ENV === 'test' ? [] : [getAdminPanelModule()];
 
 @Module({
-  imports: [PrismaModule, ...optionalImports],
+  imports: [PrismaModule, AuthModule, AvailabilityModule, AppointmentsModule],
   controllers: [AppController],
   providers: [AppService],
 })

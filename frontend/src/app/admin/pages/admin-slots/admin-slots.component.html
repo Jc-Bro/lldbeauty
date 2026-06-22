@@ -1,0 +1,123 @@
+<app-admin-sidebar active="slots" />
+
+<main class="admin-page">
+  <header class="page-header">
+    <div>
+      <h2>Gestion des disponibilites</h2>
+      <p>
+        Configurez vos prochains creneaux de soin pour permettre a vos clients de reserver leur moment de serenite.
+      </p>
+    </div>
+
+    <button type="button" class="new-appointment-button">
+      <span class="material-symbols-outlined">add</span>
+      <span>Nouvel Appointement</span>
+    </button>
+  </header>
+
+  <div class="content-grid">
+    <section class="form-panel">
+      <div class="panel-title">
+        <span class="material-symbols-outlined">edit_calendar</span>
+        <h3>Creer des creneaux</h3>
+      </div>
+
+      <form class="slot-form">
+        <label>
+          <span>Date de debut</span>
+          <input type="date" />
+        </label>
+
+        <div class="time-grid">
+          <label>
+            <span>Heure de debut</span>
+            <input type="time" />
+          </label>
+
+          <label>
+            <span>Heure de fin</span>
+            <input type="time" />
+          </label>
+        </div>
+
+        <div class="recurrence-group">
+          <span>Recurrence</span>
+          <div class="recurrence-options">
+            <button
+              type="button"
+              [class.active]="recurrence() === 'none'"
+              (click)="setRecurrence('none')"
+            >
+              Aucune
+            </button>
+            <button
+              type="button"
+              [class.active]="recurrence() === 'daily'"
+              (click)="setRecurrence('daily')"
+            >
+              Quotidienne
+            </button>
+            <button
+              type="button"
+              [class.active]="recurrence() === 'weekly'"
+              (click)="setRecurrence('weekly')"
+            >
+              Hebdomadaire
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="save-button">Enregistrer les creneaux</button>
+      </form>
+    </section>
+
+    <section class="preview-panel">
+      <div class="preview-header">
+        <h3>Apercu de la semaine</h3>
+        <div class="preview-controls">
+          <button type="button"><span class="material-symbols-outlined">chevron_left</span></button>
+          <button type="button"><span class="material-symbols-outlined">chevron_right</span></button>
+        </div>
+      </div>
+
+      <div class="week-grid">
+        <div *ngFor="let day of ['Lun|12', 'Mar|13', 'Mer|14', 'Jeu|15', 'Ven|16', 'Sam|17', 'Dim|18']; let index = index"
+             class="week-day"
+             [class.active]="index === 2">
+          <p>{{ day.split('|')[0] }}</p>
+          <strong>{{ day.split('|')[1] }}</strong>
+        </div>
+      </div>
+
+      <div class="recent-section">
+        <h4>Creneaux recemment ajoutes</h4>
+
+        <article class="recent-card" *ngFor="let slot of recentSlots">
+          <div class="recent-left">
+            <div class="icon-box">
+              <span class="material-symbols-outlined">{{ slot.icon }}</span>
+            </div>
+            <div>
+              <p class="slot-title">{{ slot.label }}</p>
+              <p class="slot-detail">{{ slot.detail }}</p>
+            </div>
+          </div>
+          <div class="row-actions">
+            <button type="button"><span class="material-symbols-outlined">edit</span></button>
+            <button type="button"><span class="material-symbols-outlined">delete</span></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="quote-visual">
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFTfhBm0EA24MXo8qjgs6RAjsYanFsndIJe637aLz-kQro-phHtSyZNcCStTJ7TwkqTSLVYWxGWBKQIPB39yvpl0hsc_tJ0oDK98edpNwPvilXBnwIvn69ILCJoo_5M4U7RrQcIgn4Y9vKKiQG596QSxYJDnTiWl9nylziuYuNtGGVJxvBOibYyGjovDQyPb5zIb9Y1hf7ZPmhfBgWnwzGglR3pFDZvfpMn_0ZjXlORXJ262wr5nNdljKQ93d78wjy_HXwjRFBSoE"
+          alt="High-end skincare products arranged artistically"
+        />
+        <div class="quote-overlay">
+          <p>L'excellence se cache dans les details de votre organisation.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,38 @@
+<aside class="admin-sidebar">
+  <div class="sidebar-branding">
+    <h1>LLDBeauty</h1>
+    <p>Studio Management</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      routerLink="/admin/calendar"
+      class="sidebar-link"
+      [class.active]="active() === 'calendar'"
+    >
+      <span class="material-symbols-outlined">calendar_today</span>
+      <span>Calendrier</span>
+    </a>
+
+    <a
+      routerLink="/admin/slots"
+      class="sidebar-link"
+      [class.active]="active() === 'slots'"
+    >
+      <span class="material-symbols-outlined">more_time</span>
+      <span>Ajout de creneaux</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-profile">
+    <img
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX1u4OF327763ZZvZ6cqkULHqfbhx4hP72yhmssWt14amP0mFq-jkOU-gbNl7v5VOV8u4gWo6TnCKl71Wal1bgD_8-Z6TNCUS9tRVcABbUxGC43-YYce9zW0SIsCGdatxMuaenO0QnWdvKfd0zN3vJpwDjJAer7OfCQYj_1vrk7u23j2c_XScCQiAmsb6YDg0icA7duCZBPNroMITdNk5arpEFuktaFp6inbjU_g8mZMGIYGixDU248HALCr-nmz5UyZeKi7jMH6M"
+      alt="Admin Studio"
+    />
+
+    <div>
+      <p class="profile-name">Admin Studio</p>
+      <p class="profile-role">LLDBeauty Manager</p>
+    </div>
+  </div>
+</aside>

@@ -28,17 +28,6 @@ export interface GalleryItem {
   imageAlt: string;
 }
 
-export interface BookingMonth {
-  label: string;
-  active: boolean;
-}
-
-export interface BookingDay {
-  label: string;
-  currentMonth?: boolean;
-  active?: boolean;
-}
-
 export interface BookingServiceOption {
   label: string;
 }
@@ -149,38 +138,13 @@ export const bookingServiceOptions: BookingServiceOption[] = [
   { label: 'Pose Mixte' },
 ];
 
-export const bookingMonths: BookingMonth[] = [
-  { label: 'Octobre', active: true },
-  { label: 'Novembre', active: false },
-  { label: 'Decembre', active: false },
-];
-
 export const bookingWeekdays = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-
-export const bookingDays: BookingDay[] = [
-  { label: '28', currentMonth: false },
-  { label: '29', currentMonth: false },
-  { label: '30', currentMonth: false },
-  { label: '1', currentMonth: true },
-  { label: '2', currentMonth: true },
-  { label: '3', currentMonth: true, active: true },
-  { label: '4', currentMonth: true },
-  { label: '5', currentMonth: true },
-  { label: '6', currentMonth: true },
-  { label: '7', currentMonth: true },
-  { label: '8', currentMonth: true },
-  { label: '9', currentMonth: true },
-  { label: '10', currentMonth: true },
-  { label: '11', currentMonth: true },
-];
-
-export const bookingTimeSlots = ['09:00', '11:30', '14:00', '16:30'];
 
 export const bookingIntro = {
   title: 'Reserver votre seance',
   description:
     'Selectionnez votre prestation et trouvez le creneau ideal pour votre moment de detente.',
-  availabilityLabel: 'Horaires disponibles le 3 Octobre',
+  availabilityLabel: 'Horaires disponibles le',
   confirmationLabel: 'Confirmer la selection',
 };
 
