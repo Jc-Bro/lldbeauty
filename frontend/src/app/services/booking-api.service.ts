@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface AvailabilitySlotRecord {
   id: string;
+  sourceSlotId?: string;
   serviceName: string | null;
   startAt: string;
   endAt: string;

@@ -1,5 +1,5 @@
 import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
-import { AppointmentStatus, Prisma } from '@prisma/client';
+import { AppointmentStatus, Prisma, RecurrenceType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 interface CreateAppointmentInput {
@@ -41,8 +41,16 @@ export class AppointmentsService {
         throw new BadRequestException('Selected slot does not exist');
       }
 
+      const appointmentDate = this.resolveAppointmentDate(slot, input.appointmentDate);
+      const startTime = this.formatTime(appointmentDate);
+      const endTime = this.formatTime(
+        new Date(appointmentDate.getTime() + (slot.endAt.getTime() - slot.startAt.getTime())),
+      );
+
       const slotAlreadyBooked = slot.appointments.some(
-        (appointment) => appointment.status !== AppointmentStatus.CANCELLED,
+        (appointment) =>
+          appointment.status !== AppointmentStatus.CANCELLED &&
+          appointment.appointmentDate.getTime() === appointmentDate.getTime(),
       );
 
       if (slotAlreadyBooked) {
@@ -55,9 +63,9 @@ export class AppointmentsService {
         clientPhone,
         clientEmail,
         serviceName: slot.serviceName ?? this.requireValue(input.serviceName, 'serviceName'),
-        appointmentDate: slot.startAt,
-        startTime: this.formatTime(slot.startAt),
-        endTime: this.formatTime(slot.endAt),
+        appointmentDate,
+        startTime,
+        endTime,
         status: AppointmentStatus.PENDING,
         slot: { connect: { id: slot.id } },
       };
@@ -87,6 +95,54 @@ export class AppointmentsService {
     }
 
     return value.trim();
+  }
+
+  private resolveAppointmentDate(
+    slot: {
+      startAt: Date;
+      endAt: Date;
+      recurrenceType: RecurrenceType;
+    },
+    appointmentDateValue: string,
+  ): Date {
+    if (slot.recurrenceType === RecurrenceType.NONE) {
+      return slot.startAt;
+    }
+
+    const appointmentDate = new Date(this.requireValue(appointmentDateValue, 'appointmentDate'));
+
+    if (Number.isNaN(appointmentDate.getTime())) {
+      throw new BadRequestException('appointmentDate is invalid');
+    }
+
+    const slotDurationMs = slot.endAt.getTime() - slot.startAt.getTime();
+
+    if (slotDurationMs <= 0) {
+      throw new BadRequestException('Selected slot is invalid');
+    }
+
+    if (!this.matchesRecurrence(slot.startAt, appointmentDate, slot.recurrenceType)) {
+      throw new BadRequestException('Selected recurring occurrence is invalid');
+    }
+
+    return appointmentDate;
+  }
+
+  private matchesRecurrence(
+    sourceStartAt: Date,
+    occurrenceStartAt: Date,
+    recurrenceType: RecurrenceType,
+  ): boolean {
+    const diffMs = occurrenceStartAt.getTime() - sourceStartAt.getTime();
+
+    if (diffMs < 0) {
+      return false;
+    }
+
+    const dayMs = 24 * 60 * 60 * 1000;
+    const intervalMs = recurrenceType === RecurrenceType.DAILY ? dayMs : 7 * dayMs;
+
+    return diffMs % intervalMs === 0;
   }
 
   private formatTime(value: Date): string {

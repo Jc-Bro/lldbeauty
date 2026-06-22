@@ -9,15 +9,29 @@ interface CreateAvailabilitySlotInput {
   recurrenceType?: RecurrenceType;
 }
 
+type AvailabilitySlotWithAppointments = Prisma.AvailabilitySlotGetPayload<{
+  include: { appointments: true };
+}>;
+
 @Injectable()
 export class AvailabilityService {
+  private readonly recurrenceWindowDays = 90;
+
   constructor(private readonly prisma: PrismaService) {}
 
-  listSlots() {
-    return this.prisma.availabilitySlot.findMany({
+  async listSlots() {
+    const slots = await this.prisma.availabilitySlot.findMany({
       orderBy: { startAt: 'asc' },
       include: { appointments: true },
     });
+
+    const now = new Date();
+    const horizon = new Date(now);
+    horizon.setDate(horizon.getDate() + this.recurrenceWindowDays);
+
+    return slots
+      .flatMap((slot) => this.expandSlot(slot, now, horizon))
+      .sort((left, right) => left.startAt.getTime() - right.startAt.getTime());
   }
 
   listRecentSlots() {
@@ -69,5 +83,72 @@ export class AvailabilityService {
     }
 
     return this.prisma.availabilitySlot.delete({ where: { id } });
+  }
+
+  private expandSlot(
+    slot: AvailabilitySlotWithAppointments,
+    now: Date,
+    horizon: Date,
+  ): AvailabilitySlotWithAppointments[] {
+    if (slot.recurrenceType === RecurrenceType.NONE) {
+      return slot.endAt.getTime() >= now.getTime() ? [slot] : [];
+    }
+
+    const occurrences: AvailabilitySlotWithAppointments[] = [];
+    const durationMs = slot.endAt.getTime() - slot.startAt.getTime();
+    const stepDays = slot.recurrenceType === RecurrenceType.DAILY ? 1 : 7;
+    const firstOccurrenceStart = this.firstOccurrenceStart(slot, now, stepDays);
+
+    for (
+      const occurrenceStart = new Date(firstOccurrenceStart);
+      occurrenceStart.getTime() <= horizon.getTime();
+      occurrenceStart.setUTCDate(occurrenceStart.getUTCDate() + stepDays)
+    ) {
+      const occurrenceEnd = new Date(occurrenceStart.getTime() + durationMs);
+      occurrences.push(this.buildOccurrence(slot, occurrenceStart, occurrenceEnd));
+    }
+
+    return occurrences;
+  }
+
+  private firstOccurrenceStart(
+    slot: AvailabilitySlotWithAppointments,
+    now: Date,
+    stepDays: number,
+  ): Date {
+    const sourceStart = slot.startAt.getTime();
+    const intervalMs = stepDays * 24 * 60 * 60 * 1000;
+
+    if (sourceStart >= now.getTime()) {
+      return new Date(slot.startAt);
+    }
+
+    const elapsedMs = now.getTime() - sourceStart;
+    const skippedIntervals = Math.floor(elapsedMs / intervalMs);
+    const candidate = new Date(sourceStart + skippedIntervals * intervalMs);
+
+    return candidate.getTime() >= now.getTime()
+      ? candidate
+      : new Date(candidate.getTime() + intervalMs);
+  }
+
+  private buildOccurrence(
+    slot: AvailabilitySlotWithAppointments,
+    occurrenceStart: Date,
+    occurrenceEnd: Date,
+  ): AvailabilitySlotWithAppointments {
+    const occurrenceStartAt = new Date(occurrenceStart);
+    const occurrenceEndAt = new Date(occurrenceEnd);
+
+    return {
+      ...slot,
+      id: `${slot.id}:${occurrenceStartAt.toISOString()}`,
+      sourceSlotId: slot.id,
+      startAt: occurrenceStartAt,
+      endAt: occurrenceEndAt,
+      appointments: slot.appointments.filter(
+        (appointment) => appointment.appointmentDate.getTime() === occurrenceStartAt.getTime(),
+      ),
+    } as AvailabilitySlotWithAppointments;
   }
 }

@@ -95,12 +95,28 @@
         </div>
       </div>
 
+      <p class="preview-state" *ngIf="loadingPreviewSlots()">Chargement de l'apercu...</p>
+      <p class="preview-state error" *ngIf="previewSlotsError()">{{ previewSlotsError() }}</p>
+
       <div class="week-grid">
         <div *ngFor="let day of previewWeekDays()" class="week-day" [class.active]="day.isToday">
           <p>{{ day.label }}</p>
           <strong>{{ day.dayNumber }}</strong>
+
+          <div class="day-slots" *ngIf="!loadingPreviewSlots() && !previewSlotsError()">
+            <p class="empty-day" *ngIf="!slotsForDate(day.isoDate).length">Aucun creneau</p>
+
+            <article class="day-slot" *ngFor="let slot of slotsForDate(day.isoDate)">
+              <span>{{ slotTimeRange(slot) }}</span>
+              <small *ngIf="slot.serviceName">{{ slot.serviceName }}</small>
+            </article>
+          </div>
         </div>
       </div>
+
+      <p class="preview-state" *ngIf="!loadingPreviewSlots() && !previewSlotsError() && !hasPreviewSlots()">
+        Aucun creneau disponible sur la periode affichee.
+      </p>
 
       <div class="recent-section">
         <h4>Creneaux recemment ajoutes</h4>

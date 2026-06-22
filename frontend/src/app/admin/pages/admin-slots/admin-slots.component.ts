@@ -17,6 +17,7 @@ interface RecentSlot {
 
 interface AvailabilitySlotRecord {
   id: string;
+  sourceSlotId?: string;
   serviceName: string | null;
   startAt: string;
   endAt: string;
@@ -50,10 +51,16 @@ export class AdminSlotsComponent implements OnInit {
   private readonly apiUrl = 'http://localhost:3000/availability/slots';
 
   protected readonly recurrence = signal<RecurrenceMode>('none');
+  protected readonly loadingPreviewSlots = signal(true);
+  protected readonly previewSlotsError = signal('');
+  protected readonly availabilitySlots = signal<AvailabilitySlotRecord[]>([]);
   protected readonly loadingRecentSlots = signal(true);
   protected readonly recentSlotsError = signal('');
   protected readonly recentSlots = signal<RecentSlot[]>([]);
   protected readonly hasRecentSlots = computed(() => this.recentSlots().length > 0);
+  protected readonly hasPreviewSlots = computed(() =>
+    this.previewWeekDays().some((day) => this.slotsForDate(day.isoDate).length > 0),
+  );
   protected readonly currentWeekStart = signal(this.startOfWeek(new Date()));
   protected readonly previewWeekDays = computed<PreviewWeekDay[]>(() => {
     const weekStart = this.currentWeekStart();
@@ -85,6 +92,7 @@ export class AdminSlotsComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.loadPreviewSlots();
     this.loadRecentSlots();
   }
 
@@ -146,12 +154,13 @@ export class AdminSlotsComponent implements OnInit {
         },
         { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) },
       )
-      .subscribe({
+        .subscribe({
         next: () => {
-          this.createSuccessMessage.set('Le creneau a bien ete enregistre.');
+          this.createSuccessMessage.set(this.successMessageFor(this.recurrence()));
           this.formState.set({ date: '', startTime: '', endTime: '', serviceName: '' });
           this.recurrence.set('none');
           this.isSubmitting.set(false);
+          this.loadPreviewSlots();
           this.loadRecentSlots();
         },
         error: (error) => {
@@ -181,6 +190,7 @@ export class AdminSlotsComponent implements OnInit {
       .subscribe({
         next: () => {
           this.recentSlots.update((slots) => slots.filter((slot) => slot.id !== slotId));
+          this.loadPreviewSlots();
         },
         error: (error) => {
           const message = error?.status === 409
@@ -220,6 +230,32 @@ export class AdminSlotsComponent implements OnInit {
       });
   }
 
+  private loadPreviewSlots(): void {
+    this.loadingPreviewSlots.set(true);
+    this.previewSlotsError.set('');
+
+    this.http.get<AvailabilitySlotRecord[]>(this.apiUrl).subscribe({
+      next: (slots) => {
+        this.availabilitySlots.set(slots);
+        this.loadingPreviewSlots.set(false);
+      },
+      error: () => {
+        this.loadingPreviewSlots.set(false);
+        this.previewSlotsError.set('Impossible de charger l\'apercu des creneaux.');
+      },
+    });
+  }
+
+  protected slotsForDate(dateKey: string): AvailabilitySlotRecord[] {
+    return this.availabilitySlots()
+      .filter((slot) => this.toDateKey(new Date(slot.startAt)) === dateKey)
+      .sort((left, right) => left.startAt.localeCompare(right.startAt));
+  }
+
+  protected slotTimeRange(slot: AvailabilitySlotRecord): string {
+    return `${this.formatTime(new Date(slot.startAt))} - ${this.formatTime(new Date(slot.endAt))}`;
+  }
+
   private toRecurrenceType(mode: RecurrenceMode): 'NONE' | 'DAILY' | 'WEEKLY' {
     if (mode === 'daily') {
       return 'DAILY';
@@ -243,24 +279,39 @@ export class AdminSlotsComponent implements OnInit {
   private toRecentSlot(slot: AvailabilitySlotRecord): RecentSlot {
     const startAt = new Date(slot.startAt);
     const endAt = new Date(slot.endAt);
-
-    return {
-      id: slot.id,
-      label:
-        slot.recurrenceType === 'WEEKLY'
+    const label =
+      slot.recurrenceType === 'DAILY'
+        ? 'Chaque jour'
+        : slot.recurrenceType === 'WEEKLY'
           ? `Chaque ${new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(startAt)}`
           : new Intl.DateTimeFormat('fr-FR', {
               weekday: 'long',
               day: 'numeric',
               month: 'long',
-            }).format(startAt),
+            }).format(startAt);
+
+    return {
+      id: slot.id,
+      label,
       detail: `${this.formatTime(startAt)} - ${this.formatTime(endAt)}${slot.serviceName ? ` • ${slot.serviceName}` : ''}`,
       icon: slot.recurrenceType === 'NONE' ? 'schedule' : 'repeat',
       isDeleting: false,
     };
   }
 
-  private formatTime(date: Date): string {
+  private successMessageFor(mode: RecurrenceMode): string {
+    if (mode === 'daily') {
+      return 'Le creneau a bien ete enregistre et se repetera chaque jour.';
+    }
+
+    if (mode === 'weekly') {
+      return 'Le creneau a bien ete enregistre et se repetera chaque semaine.';
+    }
+
+    return 'Le creneau a bien ete enregistre.';
+  }
+
+  protected formatTime(date: Date): string {
     return new Intl.DateTimeFormat('fr-FR', {
       hour: '2-digit',
       minute: '2-digit',

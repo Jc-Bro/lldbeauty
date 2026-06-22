@@ -234,7 +234,7 @@ export class BookingSectionComponent implements OnInit {
       appointmentDate: selectedSlot.startAt,
       startTime: this.formatTime(selectedSlot.startAt),
       endTime: this.formatTime(selectedSlot.endAt),
-      slotId: selectedSlot.id,
+      slotId: selectedSlot.sourceSlotId ?? selectedSlot.id,
     };
 
     this.submitting.set(true);
