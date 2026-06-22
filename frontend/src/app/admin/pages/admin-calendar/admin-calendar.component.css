@@ -231,6 +231,13 @@
   font-weight: 700;
 }
 
+.phone {
+  display: block;
+  padding: 2px 12px 0;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
 .service {
   display: block;
   padding: 4px 12px 0;
@@ -362,6 +369,11 @@
 
 .month-appointment strong {
   font-size: 0.76rem;
+}
+
+.month-phone {
+  font-size: 0.7rem;
+  opacity: 0.85;
 }
 
 .month-appointment span,

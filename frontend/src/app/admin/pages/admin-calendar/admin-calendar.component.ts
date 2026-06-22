@@ -8,6 +8,7 @@ import { AdminAuthService } from '../../services/admin-auth.service';
 interface AppointmentCard {
   id: string;
   customer: string;
+  clientPhone: string;
   service: string;
   time: string;
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
@@ -20,6 +21,7 @@ interface AdminAppointmentRecord {
   id: string;
   clientName: string;
   clientFirstName: string;
+  clientPhone: string;
   serviceName: string;
   appointmentDate: string;
   startTime: string;
@@ -144,6 +146,7 @@ export class AdminCalendarComponent implements OnInit {
         return {
           id: appointment.id,
           customer: `${appointment.clientFirstName} ${appointment.clientName}`,
+          clientPhone: appointment.clientPhone,
           service: appointment.serviceName,
           time: `${appointment.startTime} - ${appointment.endTime}`,
           status: appointment.status.toLowerCase() as AppointmentCard['status'],

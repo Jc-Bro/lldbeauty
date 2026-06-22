@@ -59,6 +59,7 @@
           <span class="name">{{ appointment.customer }}</span>
           <span class="material-symbols-outlined">more_vert</span>
         </div>
+        <span class="phone">{{ appointment.clientPhone }}</span>
         <span class="service">{{ appointment.service }}</span>
         <div class="appointment-time">
           <span class="material-symbols-outlined">schedule</span>
@@ -98,6 +99,7 @@
             [ngClass]="monthCardStatus(appointment)"
           >
             <strong>{{ appointment.startTime }} • {{ monthCustomerLabel(appointment) }}</strong>
+            <span class="month-phone">{{ appointment.clientPhone }}</span>
             <span>{{ appointment.serviceName }}</span>
           </div>
 
