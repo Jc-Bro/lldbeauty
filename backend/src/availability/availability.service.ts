@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma, RecurrenceType } from '@prisma/client';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { AppointmentStatus, Prisma, RecurrenceType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 interface CreateAvailabilitySlotInput {
@@ -24,6 +24,7 @@ export class AvailabilityService {
     return this.prisma.availabilitySlot.findMany({
       orderBy: { createdAt: 'desc' },
       take: 10,
+      include: { appointments: true },
     });
   }
 
@@ -38,7 +39,24 @@ export class AvailabilityService {
     return this.prisma.availabilitySlot.create({ data });
   }
 
-  deleteSlot(id: string) {
+  async deleteSlot(id: string) {
+    const slot = await this.prisma.availabilitySlot.findUnique({
+      where: { id },
+      include: { appointments: true },
+    });
+
+    if (!slot) {
+      throw new NotFoundException('Availability slot not found');
+    }
+
+    const hasActiveAppointment = slot.appointments.some(
+      (appointment) => appointment.status !== AppointmentStatus.CANCELLED,
+    );
+
+    if (hasActiveAppointment) {
+      throw new ConflictException('Cannot delete a slot with an active appointment');
+    }
+
     return this.prisma.availabilitySlot.delete({ where: { id } });
   }
 }

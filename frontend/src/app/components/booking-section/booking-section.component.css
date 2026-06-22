@@ -113,6 +113,53 @@ input:focus-visible {
   padding-bottom: 6px;
 }
 
+.month-nav,
+.selected-day-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.selected-day-panel {
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 14px 16px;
+  border: 1px solid rgba(195, 201, 186, 0.5);
+  border-radius: 16px;
+  background: rgba(240, 237, 237, 0.65);
+}
+
+.selected-day-panel strong {
+  color: #1c1b1b;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+}
+
+.selected-day-label {
+  margin: 0 0 4px;
+  color: #73796d;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav-button {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(195, 201, 186, 0.8);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #43493e;
+  cursor: pointer;
+}
+
+.nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .month-chip,
 .day-button,
 .slot-button {
@@ -254,6 +301,11 @@ input:focus-visible {
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .month-nav,
+  .selected-day-panel {
+    gap: 8px;
   }
 }
 

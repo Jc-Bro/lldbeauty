@@ -70,15 +70,23 @@
 
           <div class="field-group">
             <label>Mois</label>
-            <div class="month-list">
-              <button
-                *ngFor="let month of months()"
-                type="button"
-                class="month-chip"
-                [class.active]="selectedMonthKey() === month.key"
-                (click)="selectMonth(month.key)"
-              >
-                {{ month.label }}
+            <div class="month-nav">
+              <button type="button" class="nav-button" [disabled]="!canGoToPreviousMonth()" (click)="selectPreviousMonth()">
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <div class="month-list">
+                <button
+                  *ngFor="let month of months()"
+                  type="button"
+                  class="month-chip"
+                  [class.active]="selectedMonthKey() === month.key"
+                  (click)="selectMonth(month.key)"
+                >
+                  {{ month.label }}
+                </button>
+              </div>
+              <button type="button" class="nav-button" [disabled]="!canGoToNextMonth()" (click)="selectNextMonth()">
+                <span class="material-symbols-outlined">chevron_right</span>
               </button>
             </div>
           </div>
@@ -101,6 +109,19 @@
               (click)="selectDay(day)"
             >
               {{ day.label }}
+            </button>
+          </div>
+
+          <div class="selected-day-panel">
+            <button type="button" class="nav-button" [disabled]="!canGoToPreviousDate()" (click)="selectPreviousDate()">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <div>
+              <p class="selected-day-label">Jour selectionne</p>
+              <strong>{{ selectedDateLabel() }}</strong>
+            </div>
+            <button type="button" class="nav-button" [disabled]="!canGoToNextDate()" (click)="selectNextDate()">
+              <span class="material-symbols-outlined">chevron_right</span>
             </button>
           </div>
 

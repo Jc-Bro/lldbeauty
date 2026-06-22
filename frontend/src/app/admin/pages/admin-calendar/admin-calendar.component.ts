@@ -36,6 +36,17 @@ interface CalendarDay {
   isWeekend: boolean;
 }
 
+interface MonthCalendarDay {
+  date: Date;
+  isoDate: string;
+  dayNumber: string;
+  isCurrentMonth: boolean;
+  isToday: boolean;
+  appointments: AdminAppointmentRecord[];
+}
+
+type CalendarViewMode = 'week' | 'month';
+
 @Component({
   selector: 'app-admin-calendar',
   imports: [CommonModule, RouterLink, AdminSidebarComponent],
@@ -54,7 +65,9 @@ export class AdminCalendarComponent implements OnInit {
 
   protected readonly loading = signal(true);
   protected readonly errorMessage = signal('');
+  protected readonly calendarView = signal<CalendarViewMode>('week');
   protected readonly currentWeekStart = signal(this.startOfWeek(new Date()));
+  protected readonly currentMonthAnchor = signal(this.startOfMonth(new Date()));
   protected readonly appointments = signal<AdminAppointmentRecord[]>([]);
   protected readonly weekDays = computed<CalendarDay[]>(() => {
     const weekStart = this.currentWeekStart();
@@ -78,6 +91,35 @@ export class AdminCalendarComponent implements OnInit {
     weekEnd.setDate(weekStart.getDate() + 6);
 
     return `${this.formatRangeDate(weekStart)} - ${this.formatRangeDate(weekEnd, true)}`;
+  });
+  protected readonly monthLabel = computed(() =>
+    new Intl.DateTimeFormat('fr-FR', {
+      month: 'long',
+      year: 'numeric',
+    }).format(this.currentMonthAnchor()),
+  );
+  protected readonly monthDays = computed<MonthCalendarDay[]>(() => {
+    const anchor = this.currentMonthAnchor();
+    const firstDay = new Date(anchor.getFullYear(), anchor.getMonth(), 1);
+    const lastDay = new Date(anchor.getFullYear(), anchor.getMonth() + 1, 0);
+    const startOffset = (firstDay.getDay() + 6) % 7;
+    const gridStart = new Date(firstDay);
+    gridStart.setDate(firstDay.getDate() - startOffset);
+
+    return Array.from({ length: 42 }, (_, index) => {
+      const date = new Date(gridStart);
+      date.setDate(gridStart.getDate() + index);
+      const isoDate = this.toDateKey(date);
+
+      return {
+        date,
+        isoDate,
+        dayNumber: new Intl.DateTimeFormat('fr-FR', { day: 'numeric' }).format(date),
+        isCurrentMonth: date.getMonth() === anchor.getMonth(),
+        isToday: isoDate === this.toDateKey(new Date()),
+        appointments: this.appointmentsForDate(isoDate),
+      };
+    });
   });
   protected readonly appointmentCards = computed<AppointmentCard[]>(() => {
     const weekDays = this.weekDays();
@@ -117,6 +159,10 @@ export class AdminCalendarComponent implements OnInit {
     this.loadAppointments();
   }
 
+  protected setCalendarView(mode: CalendarViewMode): void {
+    this.calendarView.set(mode);
+  }
+
   protected previousWeek(): void {
     const nextValue = new Date(this.currentWeekStart());
     nextValue.setDate(nextValue.getDate() - 7);
@@ -127,6 +173,44 @@ export class AdminCalendarComponent implements OnInit {
     const nextValue = new Date(this.currentWeekStart());
     nextValue.setDate(nextValue.getDate() + 7);
     this.currentWeekStart.set(this.startOfWeek(nextValue));
+  }
+
+  protected previousRange(): void {
+    if (this.calendarView() === 'week') {
+      this.previousWeek();
+      return;
+    }
+
+    const nextValue = new Date(this.currentMonthAnchor());
+    nextValue.setMonth(nextValue.getMonth() - 1);
+    this.currentMonthAnchor.set(this.startOfMonth(nextValue));
+  }
+
+  protected nextRange(): void {
+    if (this.calendarView() === 'week') {
+      this.nextWeek();
+      return;
+    }
+
+    const nextValue = new Date(this.currentMonthAnchor());
+    nextValue.setMonth(nextValue.getMonth() + 1);
+    this.currentMonthAnchor.set(this.startOfMonth(nextValue));
+  }
+
+  protected visibleRangeLabel(): string {
+    return this.calendarView() === 'week' ? this.weekLabel() : this.monthLabel();
+  }
+
+  protected monthCardStatus(appointment: AdminAppointmentRecord): AppointmentCard['status'] {
+    return appointment.status.toLowerCase() as AppointmentCard['status'];
+  }
+
+  protected monthCustomerLabel(appointment: AdminAppointmentRecord): string {
+    return `${appointment.clientFirstName} ${appointment.clientName}`;
+  }
+
+  protected monthOverflowCount(day: MonthCalendarDay): number {
+    return Math.max(day.appointments.length - 3, 0);
   }
 
   protected appointmentStyle(appointment: AppointmentCard) {
@@ -166,6 +250,17 @@ export class AdminCalendarComponent implements OnInit {
     normalized.setHours(0, 0, 0, 0);
     normalized.setDate(normalized.getDate() - dayIndex);
     return normalized;
+  }
+
+  private startOfMonth(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
+  }
+
+  private appointmentsForDate(dateKey: string): AdminAppointmentRecord[] {
+    return this.appointments()
+      .filter((appointment) => !!appointment.slotId)
+      .filter((appointment) => this.toDateKey(new Date(appointment.appointmentDate)) === dateKey)
+      .sort((left, right) => left.startTime.localeCompare(right.startTime));
   }
 
   private toDateKey(date: Date): string {

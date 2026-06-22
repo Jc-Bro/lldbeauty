@@ -92,7 +92,13 @@
       <div class="recent-section">
         <h4>Creneaux recemment ajoutes</h4>
 
-        <article class="recent-card" *ngFor="let slot of recentSlots">
+        <p class="recent-state" *ngIf="loadingRecentSlots()">Chargement des creneaux...</p>
+        <p class="recent-state error" *ngIf="recentSlotsError()">{{ recentSlotsError() }}</p>
+        <p class="recent-state" *ngIf="!loadingRecentSlots() && !recentSlotsError() && !hasRecentSlots()">
+          Aucun creneau recent a afficher.
+        </p>
+
+        <article class="recent-card" *ngFor="let slot of recentSlots()">
           <div class="recent-left">
             <div class="icon-box">
               <span class="material-symbols-outlined">{{ slot.icon }}</span>
@@ -103,8 +109,9 @@
             </div>
           </div>
           <div class="row-actions">
-            <button type="button"><span class="material-symbols-outlined">edit</span></button>
-            <button type="button"><span class="material-symbols-outlined">delete</span></button>
+            <button type="button" [disabled]="slot.isDeleting" (click)="deleteSlot(slot.id)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
           </div>
         </article>
       </div>

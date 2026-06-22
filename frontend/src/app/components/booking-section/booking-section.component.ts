@@ -82,6 +82,11 @@ export class BookingSectionComponent implements OnInit {
 
     return Array.from(monthMap.values()).sort((left, right) => left.key.localeCompare(right.key));
   });
+  protected readonly availableDateKeys = computed(() =>
+    Array.from(
+      new Set(this.filteredReservableSlots().map((slot) => this.toDateKey(new Date(slot.startAt)))),
+    ).sort((left, right) => left.localeCompare(right)),
+  );
 
   protected readonly days = computed<BookingDayView[]>(() => {
     const monthKey = this.selectedMonthKey();
@@ -126,6 +131,29 @@ export class BookingSectionComponent implements OnInit {
 
     return `${this.intro().availabilityLabel} ${this.formatLongDate(selectedDateKey)}`;
   });
+  protected readonly selectedDateLabel = computed(() => {
+    const selectedDateKey = this.selectedDateKey();
+    return selectedDateKey ? this.formatLongDate(selectedDateKey) : 'Aucune date selectionnee';
+  });
+  protected readonly canGoToPreviousMonth = computed(() => {
+    const months = this.months();
+    return months.findIndex((month) => month.key === this.selectedMonthKey()) > 0;
+  });
+  protected readonly canGoToNextMonth = computed(() => {
+    const months = this.months();
+    const currentIndex = months.findIndex((month) => month.key === this.selectedMonthKey());
+    return currentIndex !== -1 && currentIndex < months.length - 1;
+  });
+  protected readonly canGoToPreviousDate = computed(() => {
+    const currentDateKey = this.selectedDateKey();
+    return currentDateKey ? this.availableDateKeys().indexOf(currentDateKey) > 0 : false;
+  });
+  protected readonly canGoToNextDate = computed(() => {
+    const currentDateKey = this.selectedDateKey();
+    const availableDateKeys = this.availableDateKeys();
+    const currentIndex = currentDateKey ? availableDateKeys.indexOf(currentDateKey) : -1;
+    return currentIndex !== -1 && currentIndex < availableDateKeys.length - 1;
+  });
 
   protected readonly canSubmit = computed(() => {
     const form = this.bookingForm();
@@ -152,6 +180,14 @@ export class BookingSectionComponent implements OnInit {
     this.syncSelectedDate();
   }
 
+  protected selectPreviousMonth(): void {
+    this.shiftMonth(-1);
+  }
+
+  protected selectNextMonth(): void {
+    this.shiftMonth(1);
+  }
+
   protected selectDay(day: BookingDayView): void {
     if (!day.available) {
       return;
@@ -163,6 +199,14 @@ export class BookingSectionComponent implements OnInit {
 
   protected selectSlot(slotId: string): void {
     this.selectedSlotId.set(slotId);
+  }
+
+  protected selectPreviousDate(): void {
+    this.shiftDate(-1);
+  }
+
+  protected selectNextDate(): void {
+    this.shiftDate(1);
   }
 
   protected updateServiceName(serviceName: string): void {
@@ -277,6 +321,42 @@ export class BookingSectionComponent implements OnInit {
       this.selectedDateKey.set(availableDays[0]?.dateKey ?? null);
     }
 
+    this.syncSelectedSlot();
+  }
+
+  private shiftMonth(direction: -1 | 1): void {
+    const months = this.months();
+    const currentIndex = months.findIndex((month) => month.key === this.selectedMonthKey());
+
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const nextMonth = months[currentIndex + direction];
+
+    if (nextMonth) {
+      this.selectMonth(nextMonth.key);
+    }
+  }
+
+  private shiftDate(direction: -1 | 1): void {
+    const currentDateKey = this.selectedDateKey();
+
+    if (!currentDateKey) {
+      return;
+    }
+
+    const availableDateKeys = this.availableDateKeys();
+    const currentIndex = availableDateKeys.indexOf(currentDateKey);
+    const nextDateKey = availableDateKeys[currentIndex + direction];
+
+    if (!nextDateKey) {
+      return;
+    }
+
+    const nextMonthKey = nextDateKey.slice(0, 7);
+    this.selectedMonthKey.set(nextMonthKey);
+    this.selectedDateKey.set(nextDateKey);
     this.syncSelectedSlot();
   }
 

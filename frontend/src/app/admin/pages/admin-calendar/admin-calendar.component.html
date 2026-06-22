@@ -9,16 +9,16 @@
 
     <div class="header-actions">
       <div class="view-switcher">
-        <button class="active" type="button">Semaine</button>
-        <button type="button">Mois</button>
+        <button type="button" [class.active]="calendarView() === 'week'" (click)="setCalendarView('week')">Semaine</button>
+        <button type="button" [class.active]="calendarView() === 'month'" (click)="setCalendarView('month')">Mois</button>
       </div>
 
       <div class="range-controls">
-        <button type="button" class="icon-button" (click)="previousWeek()">
+        <button type="button" class="icon-button" (click)="previousRange()">
           <span class="material-symbols-outlined">chevron_left</span>
         </button>
-        <span>{{ weekLabel() }}</span>
-        <button type="button" class="icon-button" (click)="nextWeek()">
+        <span>{{ visibleRangeLabel() }}</span>
+        <button type="button" class="icon-button" (click)="nextRange()">
           <span class="material-symbols-outlined">chevron_right</span>
         </button>
       </div>
@@ -30,7 +30,7 @@
     </div>
   </header>
 
-  <section class="calendar-card">
+  <section class="calendar-card" *ngIf="calendarView() === 'week'">
     <div class="calendar-header calendar-grid">
       <div class="hour-cell title-cell">Heure</div>
       <div
@@ -72,6 +72,46 @@
         Aucun rendez-vous client enregistre sur cette semaine.
       </p>
     </div>
+  </section>
+
+  <section class="calendar-card month-calendar" *ngIf="calendarView() === 'month'">
+    <div class="month-weekdays">
+      <span *ngFor="let weekday of ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']">{{ weekday }}</span>
+    </div>
+
+    <div class="month-grid">
+      <article
+        *ngFor="let day of monthDays()"
+        class="month-day"
+        [class.outside-month]="!day.isCurrentMonth"
+        [class.is-today]="day.isToday"
+      >
+        <div class="month-day-top">
+          <span>{{ day.dayNumber }}</span>
+          <small *ngIf="day.appointments.length">{{ day.appointments.length }} rdv</small>
+        </div>
+
+        <div class="month-day-appointments" *ngIf="day.appointments.length; else emptyDay">
+          <div
+            *ngFor="let appointment of day.appointments.slice(0, 3)"
+            class="month-appointment"
+            [ngClass]="monthCardStatus(appointment)"
+          >
+            <strong>{{ appointment.startTime }} • {{ monthCustomerLabel(appointment) }}</strong>
+            <span>{{ appointment.serviceName }}</span>
+          </div>
+
+          <p class="month-overflow" *ngIf="monthOverflowCount(day)">+{{ monthOverflowCount(day) }} autres</p>
+        </div>
+
+        <ng-template #emptyDay>
+          <p class="month-empty">Aucun rendez-vous</p>
+        </ng-template>
+      </article>
+    </div>
+
+    <p class="calendar-state" *ngIf="loading()">Chargement des rendez-vous...</p>
+    <p class="calendar-state error" *ngIf="errorMessage()">{{ errorMessage() }}</p>
   </section>
 
   <footer class="page-footer">

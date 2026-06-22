@@ -168,6 +168,11 @@
   color: #43493e;
 }
 
+.row-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .week-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -220,6 +225,15 @@
   margin: 0 0 16px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(195, 201, 186, 0.3);
+}
+
+.recent-state {
+  margin: 0 0 12px;
+  color: #43493e;
+}
+
+.recent-state.error {
+  color: #8c3b32;
 }
 
 .recent-card {
