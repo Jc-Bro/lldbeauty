@@ -1,0 +1,27 @@
+<section class="services-section" id="about">
+  <div class="section-shell">
+    <div class="section-heading">
+      <h2>Nos Services Signatures</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-list">
+        <article class="service-card" *ngFor="let card of cards()">
+          <span class="material-symbols-outlined service-icon">{{ card.icon }}</span>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.description }}</p>
+          <span class="price">{{ card.price }}</span>
+        </article>
+      </div>
+
+      <div class="visual-column">
+        <div class="visual-frame">
+          <img [src]="visual().imageUrl" [alt]="visual().imageAlt" />
+        </div>
+
+        <aside class="quote-card">{{ visual().quote }}</aside>
+      </div>
+    </div>
+  </div>
+</section>

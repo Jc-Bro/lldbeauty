@@ -1,0 +1,137 @@
+:host {
+  display: block;
+}
+
+.services-section {
+  padding: 80px 24px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.section-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-heading {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+h2 {
+  margin: 0;
+  color: #1c1b1b;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+}
+
+.divider {
+  width: 96px;
+  height: 1px;
+  margin: 24px auto 0;
+  background: rgba(115, 121, 109, 0.5);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px;
+  align-items: center;
+}
+
+.service-list {
+  display: grid;
+  gap: 24px;
+}
+
+.service-card {
+  padding: 32px;
+  border: 1px solid rgba(195, 201, 186, 0.6);
+  border-radius: 20px;
+  background: rgba(246, 243, 242, 0.72);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(28, 27, 27, 0.08);
+}
+
+.service-icon {
+  margin-bottom: 16px;
+  color: #426830;
+  font-size: 2.4rem;
+}
+
+h3 {
+  margin: 0;
+  color: #1c1b1b;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+p {
+  margin: 14px 0 0;
+  color: #43493e;
+  line-height: 1.75;
+}
+
+.price {
+  display: inline-block;
+  margin-top: 18px;
+  color: #426830;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.visual-column {
+  position: relative;
+  padding-inline: 32px;
+}
+
+.visual-frame {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 8px solid #f0eded;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+}
+
+.visual-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.03);
+}
+
+.quote-card {
+  position: absolute;
+  left: 0;
+  bottom: 24px;
+  max-width: 220px;
+  padding: 20px;
+  border-radius: 18px;
+  background: #4b663d;
+  color: #ffffff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  box-shadow: 0 20px 40px rgba(65, 91, 52, 0.12);
+}
+
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-column {
+    order: -1;
+    padding-inline: 0;
+  }
+
+  .quote-card {
+    position: static;
+    margin-top: 16px;
+  }
+}

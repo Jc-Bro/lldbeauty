@@ -1,0 +1,28 @@
+<app-site-header [brand]="brand" [links]="links" />
+
+<main class="home-shell">
+  <app-hero-section [content]="hero" />
+  <app-services-section
+    [cards]="services"
+    [visual]="servicesVisual"
+  />
+  <app-gallery-section [items]="gallery" />
+  <app-booking-section
+    [intro]="bookingIntro"
+    [serviceOptions]="bookingServiceOptions"
+    [months]="bookingMonths"
+    [weekdays]="bookingWeekdays"
+    [days]="bookingDays"
+    [timeSlots]="bookingTimeSlots"
+  />
+  <app-contact-section
+    [intro]="contactIntro"
+    [details]="contactDetails"
+  />
+</main>
+
+<app-site-footer
+  [brand]="footerBrand"
+  [links]="footerLinks"
+  [copyright]="footerCopyright"
+/>

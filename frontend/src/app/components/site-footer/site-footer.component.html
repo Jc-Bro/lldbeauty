@@ -1,0 +1,11 @@
+<footer class="site-footer">
+  <div class="footer-shell">
+    <div class="footer-brand">{{ brand() }}</div>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a *ngFor="let link of links()" [href]="link.href">{{ link.label }}</a>
+    </nav>
+
+    <p class="footer-copy">{{ copyright() }}</p>
+  </div>
+</footer>

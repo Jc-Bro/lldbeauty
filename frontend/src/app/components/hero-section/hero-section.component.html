@@ -1,0 +1,27 @@
+<section class="hero-section" id="top">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">{{ content().eyebrow }}</span>
+      <h1>{{ content().title }}</h1>
+      <p>{{ content().description }}</p>
+
+      <div class="hero-actions">
+        <a class="primary-action" [href]="'#' + content().primaryActionFragment">
+          {{ content().primaryActionLabel }}
+        </a>
+        <a class="secondary-action" [href]="'#' + content().secondaryActionFragment">
+          {{ content().secondaryActionLabel }}
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="image-frame">
+        <img [src]="content().imageUrl" [alt]="content().imageAlt" />
+      </div>
+
+      <div class="glow glow-right"></div>
+      <div class="glow glow-left"></div>
+    </div>
+  </div>
+</section>

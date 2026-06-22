@@ -1,0 +1,17 @@
+<section class="gallery-section" id="gallery">
+  <div class="gallery-shell">
+    <div class="gallery-heading">
+      <h2>Nos realisations</h2>
+      <p>Decouvrez nos dernieres realisations sur mesure.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <article class="gallery-card" *ngFor="let item of items()">
+        <img [src]="item.imageUrl" [alt]="item.imageAlt" />
+        <div class="gallery-overlay">
+          <span>{{ item.title }}</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

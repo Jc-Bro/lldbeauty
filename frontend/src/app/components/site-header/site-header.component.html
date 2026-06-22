@@ -1,0 +1,40 @@
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="#top" (click)="closeMenu()">{{ brand() }}</a>
+
+    <div class="desktop-nav">
+      <a
+        *ngFor="let link of links()"
+        class="nav-link"
+        [href]="'#' + link.fragment"
+      >
+        {{ link.label }}
+      </a>
+
+      <a class="header-cta" href="#booking">Book Now</a>
+    </div>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen()"
+      aria-label="Ouvrir le menu"
+    >
+      <span class="material-symbols-outlined">{{ isMenuOpen() ? 'close' : 'menu' }}</span>
+    </button>
+  </nav>
+
+  <div class="mobile-panel" *ngIf="isMenuOpen()">
+    <a
+      *ngFor="let link of links()"
+      class="mobile-link"
+      [href]="'#' + link.fragment"
+      (click)="closeMenu()"
+    >
+      {{ link.label }}
+    </a>
+
+    <a class="mobile-cta" href="#booking" (click)="closeMenu()">Book Now</a>
+  </div>
+</header>

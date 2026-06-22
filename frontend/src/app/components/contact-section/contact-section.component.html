@@ -1,0 +1,38 @@
+<section class="contact-section" id="contact">
+  <div class="contact-shell">
+    <div class="details-column">
+      <h2>{{ intro().title }}</h2>
+
+      <div class="detail-list">
+        <article class="detail-item" *ngFor="let detail of details()">
+          <span class="material-symbols-outlined detail-icon">{{ detail.icon }}</span>
+          <div>
+            <h3>{{ detail.title }}</h3>
+            <p *ngFor="let line of detail.lines">{{ line }}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form>
+        <label>
+          <input type="text" [placeholder]="intro().namePlaceholder" />
+        </label>
+
+        <label>
+          <input type="email" [placeholder]="intro().emailPlaceholder" />
+        </label>
+
+        <label>
+          <textarea
+            rows="4"
+            [placeholder]="intro().messagePlaceholder"
+          ></textarea>
+        </label>
+
+        <button type="button">{{ intro().submitLabel }}</button>
+      </form>
+    </div>
+  </div>
+</section>
