@@ -133,7 +133,7 @@ export const galleryItems: GalleryItem[] = [
 
 export const bookingServiceOptions: BookingServiceOption[] = [
   { label: 'Rehaussement de Cils Signature' },
-  { label: 'Extension Cil a Cil Naturel' },
+  { label: 'Extension Cil à Cil Naturel' },
 ];
 
 export const bookingWeekdays = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
@@ -181,4 +181,4 @@ export const footerLinks: FooterLink[] = [
 ];
 
 export const footerCopyright =
-  '© 2026 LLDBeauty. All rights reserved.';
+  '© 2026 LLDBeauty. Tous droits réservés.';

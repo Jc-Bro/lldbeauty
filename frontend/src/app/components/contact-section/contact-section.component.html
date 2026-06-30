@@ -1,9 +1,9 @@
 <section class="contact-section" id="contact">
-  <div class="contact-shell">
+  <div class="contact-shell" style="grid-template-columns: repeat(1, minmax(0, 1fr)) !important;">
     <div class="details-column">
       <h2>{{ intro().title }}</h2>
 
-      <div class="detail-list">
+      <div class="detail-list" style="display: flex; width: 100%;">
         <article class="detail-item" *ngFor="let detail of details()">
           <span class="material-symbols-outlined detail-icon">{{ detail.icon }}</span>
           <div>
