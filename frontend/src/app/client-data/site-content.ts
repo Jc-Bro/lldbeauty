@@ -62,9 +62,9 @@ export const heroContent: HeroContent = {
   secondaryActionLabel: 'Découvrir les soins',
   secondaryActionFragment: 'about',
   imageUrl:
-    '../assets/images/hero-img.jpeg',
+    '../../../../assets/images/hero-img.jpeg',
   imageAlt:
-    "A high-end editorial close-up of a woman's eye with perfectly applied eyelash extensions.",
+    "Rehaussement de cils présta 1",
 };
 
 export const serviceCards: ServiceCard[] = [
@@ -94,39 +94,39 @@ export const servicesVisual = {
 
 export const galleryItems: GalleryItem[] = [
   {
-    title: 'Rehaussement',
+    title: '',
     imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuD_qNn6056eP2Hax-jT2_43HHaJgFNqasVuk8cSrq9MhE7lFRlLjI-Se3vfAJcle5apu3XuG05-cFjMUOilNlxpscHqzpqfDeQdXrXaQ9wjMJNgO7crbwmHkweSTb-5w0nYB9KP8v1mWzyIUeXHF8VKxlQ6iODPdgiHladZaWbW_1nlx8QnSiP2j3YrLU02cMHZK4Kd09Vu6br5uH7i74yK6WbRH-oylv0KuWnKR9uo3y7KT2w5_ffJXBpgxGVwMrdDtjEbr2DaMRk',
+    '../../../../assets/images/gallery_1.jpeg',
     imageAlt: 'Macro photography of a lash lift result on light blue eyes.',
   },
   {
-    title: 'Volume Russe',
+    title: '',
     imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBv8UrQDJoM4ZsLxSqnWhlskfWB3DrWXba0fZ3uuyAr8Ht_CktLrbFNluFXHkle1rp9Uc1CDrbYnMy1kLpAg7EKpeNiq2A5KaSddnMvA7eWrXw-OlEKZ-87jcZgSFNNJItSKh4--8TnBmkos8eXCpJdzvYeER8LZJ0zU-sRvWgN5vhifCrPz6N49HRVC5yxCf64sF2jr1kwqBNVtiB3eNnpp0i2LDHiXwlMIylByMwYlMueCGfEtmTybAOnHFDY3pnFgri0felfaak',
+    '../../../../assets/images/gallery_2.jpeg',
     imageAlt: 'Close up of a volume russe eyelash extension on brown eyes.',
   },
   {
-    title: 'Mixte',
+    title: '',
     imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAJL0pTxKNWC9VGv6DhP-ZEMFrbh0kIrc_me-_h7wZL4fE_5b2agDuI5GMnSNFo47iIQrkYUO5uoJxLs5aQoRNON3XqL0hmhi1E-Snh78c_1hRugGuuTYeXgUibdRO3AxE_8Z9kCjzHkcTPBEy7I_-cyWjsdw6iqq6MNegHxp0bzLaxodoDUrU_qOhddIQvw9iPRyEZYf_wrJ3VxarXz3p_yHlu5cSOv60PK-W4_LgC0QhpNartu1oK7PDEbBxpaZoUurcu3TLeP_M',
+    '../../../../assets/images/gallery_3.jpeg',
     imageAlt: 'Side profile of long elegant lash extensions.',
   },
   {
-    title: 'Cil a Cil',
+    title: '',
     imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuD5bQhFUo3BgxTQjdMMhGOlcNYqwnNLqhE6_hG5ZQ3TepaX2faSR2UvNqTO5jSrvfyb4dxxjIdZD64zHvMPzjTtYGzJWHThNV9ho-5T60vbpcynR209hatXMwlD5bglXlFMznEWSnQjCrpUdljRCTatxSxxfVEPSeRtDRobJVSzUNDJlUeStTNI6dgHviC--mdYr3UitfiKDIsuivMZRCKT_NZw9Fu0MatcRvwezu5zuMYVphcQyaKeXNUITgO1SdIE6Uyuf2LhPCY',
+    '../../../../assets/images/gallery_4.jpeg',
     imageAlt: 'Macro of a natural lash set.',
   },
   {
-    title: 'Lash Tint',
+    title: '',
     imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCsTe94eqfE9xhKZf9ydXddOFumZwB8CPd1m5I6xrzpy-N38FPhxumcXGv-dHH96FMjkm0KOY7xh8_SR0mYPa955iHd2XtQlvKQRPnl4acFHhTDrj244dRQlQaVGIm6nXjRLvLo_l4wKmfmYh7T_-7QVh1atCGpmBnKYffbvTXv2LFpvwtFKGMiSiPkB7v_rQ61dCsukkmvqntU1r9a72QisFRDtA0e1AgrJEryuzbPeADiIVYHxXoe0M2praJOFiA6V2Wzns1riy8',
+    '../../../../assets/images/gallery_5.jpeg',
     imageAlt: 'Lash tint and lift results on dark lashes.',
   },
   {
-    title: 'Le Processus',
+    title: '',
     imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCNcUCF3YVKx83z0kWSoMeeqg81bIhq22rynpct_E4auzZpSj3cFRS-bPwLTiyDyckSldovg9I6vZejVqMU8SqzXo_p1kXPFdpw3v5A96pyavwR_Zt2qPYtRyQ5FOD3HeM2zn9qVSOGIVPmTcoX0mRCzVcQp9CrRQ_bwCUUB2HVdtXBvn7zvs_vjkKoQGfWa-8yMUXInTrJNYRgC9HYVMuYn4uywOvUXue0nJ9WqO0OUva51xjU7H7nHD-1DUfvU68dpsJpfSsTHyg',
+    '../../../../assets/images/gallery_6.jpeg',
     imageAlt: 'Detail shot of the application process.',
   },
 ];
@@ -134,8 +134,6 @@ export const galleryItems: GalleryItem[] = [
 export const bookingServiceOptions: BookingServiceOption[] = [
   { label: 'Rehaussement de Cils Signature' },
   { label: 'Extension Cil a Cil Naturel' },
-  { label: 'Extension Volume Russe' },
-  { label: 'Pose Mixte' },
 ];
 
 export const bookingWeekdays = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
@@ -143,16 +141,16 @@ export const bookingWeekdays = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 export const bookingIntro = {
   title: 'Reserver votre seance',
   description:
-    'Selectionnez votre prestation et trouvez le creneau ideal pour votre moment de detente.',
+    'Sélectionnez votre prestation et trouvez le créneau idéal pour votre moment de détente.',
   availabilityLabel: 'Horaires disponibles le',
-  confirmationLabel: 'Confirmer la selection',
+  confirmationLabel: 'Confirmer la sélection',
 };
 
 export const contactDetails: ContactDetail[] = [
   {
     icon: 'location_on',
-    title: 'Le Studio',
-    lines: ['12 Rue de la Paix, 75002 Paris'],
+    title: 'LLDBeauty',
+    lines: ['25 chemin de la chaussée, 35120 Dol-de-Bretagne'],
   },
   {
     icon: 'schedule',
@@ -162,7 +160,7 @@ export const contactDetails: ContactDetail[] = [
   {
     icon: 'call',
     title: 'Telephone',
-    lines: ['01 23 45 67 89'],
+    lines: ['06 83 39 55 86'],
   },
 ];
 
@@ -174,13 +172,13 @@ export const contactIntro = {
   submitLabel: 'Envoyer',
 };
 
-export const footerBrand = 'LUMIERE LASH';
+export const footerBrand = 'LLDBEAUTY';
 
 export const footerLinks: FooterLink[] = [
-  { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms of Service', href: '#' },
+  { label: 'Politique de confidentialité', href: '#' },
+  { label: 'Mentions Légales', href: '#' },
   { label: 'FAQ', href: '#' },
 ];
 
 export const footerCopyright =
-  '© 2024 Lumiere Lash & Aesthetics. All rights reserved.';
+  '© 2026 LLDBeauty. All rights reserved.';
