@@ -123,26 +123,6 @@ export const galleryItems: GalleryItem[] = [
     imageUrl: siteImages.gallery.applicationProcess,
     imageAlt: 'Detail shot of the application process.',
   },
-  {
-    title: '',
-    imageUrl: siteImages.gallery.fullSizeRender,
-    imageAlt: 'Close-up of a custom lash extension result with a soft natural finish.',
-  },
-  {
-    title: '',
-    imageUrl: siteImages.gallery.fullSizeRender2,
-    imageAlt: 'Beauty shot highlighting a lifted lash line and a bright open gaze.',
-  },
-  {
-    title: '',
-    imageUrl: siteImages.gallery.fullSizeRender5,
-    imageAlt: 'Detailed view of a refined lash set designed to add elegant definition.',
-  },
-  {
-    title: '',
-    imageUrl: siteImages.gallery.fullSizeRender10,
-    imageAlt: 'Finished lash result showcasing volume, symmetry, and glossy definition.',
-  },
 ];
 
 export const bookingServiceOptions: BookingServiceOption[] = [
