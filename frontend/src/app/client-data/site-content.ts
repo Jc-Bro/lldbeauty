@@ -1,3 +1,5 @@
+import { siteImages } from './site-images';
+
 export interface NavLink {
   label: string;
   fragment: string;
@@ -36,6 +38,7 @@ export interface ContactDetail {
   icon: string;
   title: string;
   lines: string[];
+  href?: string;
 }
 
 export interface FooterLink {
@@ -61,8 +64,7 @@ export const heroContent: HeroContent = {
   primaryActionFragment: 'booking',
   secondaryActionLabel: 'Découvrir les soins',
   secondaryActionFragment: 'about',
-  imageUrl:
-    '../../../../assets/images/hero-img.jpeg',
+  imageUrl: siteImages.hero,
   imageAlt:
     "Rehaussement de cils présta 1",
 };
@@ -85,8 +87,7 @@ export const serviceCards: ServiceCard[] = [
 ];
 
 export const servicesVisual = {
-  imageUrl:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuBo61UJyxcaB2HEnVj0Im8DmnO0yxT6Y-eS43yOWQGrEkqSY4fzmo_-i3-79KEf47SMkkIafG357OTwGn4dd5RbI30T5wbnUIJ5WJGsj11fUyIjPbdjEhF69tLnlt3CUiisbYSD0gaExM1-JaEFz7sy-fm3xd4VZgypb5ThmVHHR9nWJdlU20RBsz3bDxqeiuSQpM4QdbA9SaceQZa1g3feRWo8qtDDP603N1BeE1op9PcOJKKPP5ijHOguV7SRLDF7F_rouQN4PkI',
+  imageUrl: siteImages.services,
   imageAlt:
     'A serene wide-angle shot of a minimalist luxury beauty studio interior.',
   quote: 'Un moment hors du temps.',
@@ -95,38 +96,32 @@ export const servicesVisual = {
 export const galleryItems: GalleryItem[] = [
   {
     title: '',
-    imageUrl:
-    '../../../../assets/images/gallery_1.jpeg',
+    imageUrl: siteImages.gallery.lashLiftBlueEyes,
     imageAlt: 'Macro photography of a lash lift result on light blue eyes.',
   },
   {
     title: '',
-    imageUrl:
-    '../../../../assets/images/gallery_2.jpeg',
+    imageUrl: siteImages.gallery.volumeRusseBrownEyes,
     imageAlt: 'Close up of a volume russe eyelash extension on brown eyes.',
   },
   {
     title: '',
-    imageUrl:
-    '../../../../assets/images/gallery_3.jpeg',
+    imageUrl: siteImages.gallery.sideProfileExtensions,
     imageAlt: 'Side profile of long elegant lash extensions.',
   },
   {
     title: '',
-    imageUrl:
-    '../../../../assets/images/gallery_4.jpeg',
+    imageUrl: siteImages.gallery.naturalLashSet,
     imageAlt: 'Macro of a natural lash set.',
   },
   {
     title: '',
-    imageUrl:
-    '../../../../assets/images/gallery_5.jpeg',
+    imageUrl: siteImages.gallery.tintAndLift,
     imageAlt: 'Lash tint and lift results on dark lashes.',
   },
   {
     title: '',
-    imageUrl:
-    '../../../../assets/images/gallery_6.jpeg',
+    imageUrl: siteImages.gallery.applicationProcess,
     imageAlt: 'Detail shot of the application process.',
   },
 ];
@@ -150,12 +145,13 @@ export const contactDetails: ContactDetail[] = [
   {
     icon: 'location_on',
     title: 'LLDBeauty',
-    lines: ['25 chemin de la chaussée, 35120 Dol-de-Bretagne'],
+    lines: ['25 chemin de la chaussée,', '35120 Dol-de-Bretagne'],
   },
   {
-    icon: 'schedule',
-    title: "Horaires d'Ouverture",
-    lines: ['Mardi - Vendredi: 10h - 19h', 'Samedi: 09h - 18h'],
+    icon: 'instagram',
+    title: 'Instagram',
+    lines: ['lldbeauty_'],
+    href: 'https://instagram.com/lldbeauty_',
   },
   {
     icon: 'call',
