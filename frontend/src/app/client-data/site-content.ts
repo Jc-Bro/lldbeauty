@@ -48,21 +48,21 @@ export const siteBrand = 'LLDBeauty';
 export const navLinks: NavLink[] = [
   { label: 'Services', fragment: 'about' },
   { label: 'Galerie', fragment: 'gallery' },
-  { label: 'Reservation', fragment: 'booking' },
+  { label: 'Réservation', fragment: 'booking' },
   { label: 'Contact', fragment: 'contact' },
 ];
 
 export const heroContent: HeroContent = {
-  eyebrow: 'Expertise & Serenite',
+  eyebrow: 'Expertise & Sérénite',
   title: "L'Art du Regard",
   description:
-    'Sublimez votre beaute naturelle avec nos soins specialises de rehaussement de cils et d\'extensions sur mesure. Une experience calme et luxueuse pour un regard transforme.',
-  primaryActionLabel: 'Reserver maintenant',
+    'Sublimez votre regard au sein de mon institut avec les différentes prestations que je peux vous proposer. Différentes techniques sont élaborée pour vous correspondre au mieux',
+  primaryActionLabel: 'Réserver maintenant',
   primaryActionFragment: 'booking',
-  secondaryActionLabel: 'Decouvrir les soins',
+  secondaryActionLabel: 'Découvrir les soins',
   secondaryActionFragment: 'about',
   imageUrl:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuCHsXh7IA7tS2U_oyHy3EVeJHAgMrH_0DFnfohB8ZQoY4g8ISxufR1gJkD6-yiXCiObBa5YQ5ikcaY6fh_tAdgnFQ1dveA7XIDRBHncu19Z67sNXJpmybgEUp6weorqzyPYgSkdX2LV5TybQklNfoGSFcnziRdRw6uRJoh2XBwpO68yb1N3XC9uFbUvs6tRfItpMX6iSbK8kMRvnMBln6Vqf5e00lJnj7vzA3n4ye91N2SEl-8DU9xPM5wFiS4hZkBpGB62kBpZR2E',
+    '../assets/images/hero-img.jpeg',
   imageAlt:
     "A high-end editorial close-up of a woman's eye with perfectly applied eyelash extensions.",
 };
@@ -72,15 +72,15 @@ export const serviceCards: ServiceCard[] = [
     icon: 'auto_awesome',
     title: 'Rehaussement de Cils',
     description:
-      'Une technique innovante pour courber vos cils naturels depuis la racine. Le resultat ouvre le regard et allonge visuellement les cils pendant 6 a 8 semaines.',
-    price: 'A partir de 65 EUR',
+      'Une technique innovante pour courber vos cils naturels depuis la racine. Le résultat ouvre le regard et allonge visuellement les cils pendant 6 à 8 semaines.',
+    price: 'À partir de 65 EUR',
   },
   {
     icon: 'brush',
     title: 'Extensions de Cils',
     description:
-      'Du cil a cil naturel au volume russe sophistique. Chaque pose est adaptee a la morphologie de votre oeil pour un resultat harmonieux et durable.',
-    price: 'A partir de 85 EUR',
+      'Du cil à cil naturel au volume russe sophistiqué. Chaque pose est adaptée à la morphologie de votre oeil pour un résultat harmonieux et durable.',
+    price: 'À partir de 85 EUR',
   },
 ];
 

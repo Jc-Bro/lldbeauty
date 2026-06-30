@@ -1,0 +1,301 @@
+# Mise en page precise des schemas et tableaux pour les slides
+
+Ce document sert de guide de composition visuelle dans Canva / PowerPoint.
+Objectif : t'aider a construire rapidement des slides propres, lisibles et academiques.
+
+---
+
+SLIDE 3 - PROBLEMATIQUE ET OBJECTIFS
+
+Type de slide
+- Schema horizontal en 3 blocs relies par des fleches
+
+Mise en page
+- Titre en haut sur toute la largeur
+- Au centre : 3 cartes alignees horizontalement
+- Fleche 1 entre bloc 1 et bloc 2
+- Fleche 2 entre bloc 2 et bloc 3
+- Bas de slide : une phrase de synthese
+
+Bloc 1 - Probleme
+- Pas de presence web centralisee
+- Prise de rendez-vous peu fluide
+- Gestion manuelle des creneaux
+
+Bloc 2 - Solution
+- Site vitrine professionnel
+- Reservation en ligne
+- Back-office d'administration
+
+Bloc 3 - Benefices
+- Plus de visibilite
+- Gain de temps
+- Organisation simplifiee
+- Image professionnelle
+
+Conseils visuels
+- Couleur 1 pour le probleme : ton neutre ou legerement contraste
+- Couleur 2 pour la solution : couleur principale de la presentation
+- Couleur 3 pour les benefices : ton plus positif
+- Utiliser une icone par bloc : alerte / ecran / etoile ou validation
+
+Phrase de synthese a mettre en bas
+- Le projet repond a un besoin metier concret en combinant communication, reservation et administration.
+
+---
+
+SLIDE 4 - TABLEAU DE NOTE DE CADRAGE
+
+Type de slide
+- Tableau 2 colonnes pleine largeur
+
+Mise en page
+- Titre en haut
+- Tableau central occupant environ 70 a 80% de la slide
+- A droite ou en bas : petit encart "Point cle"
+
+Structure du tableau
+
+| Element | Contenu |
+|---|---|
+| Objet | Creer un site vitrine avec reservation en ligne et back-office |
+| Finalite | Ameliorer la visibilite et faciliter la gestion des rendez-vous |
+| Client | Lucie Deroff - rehaussement et extension de cils |
+| Utilisateurs | Clientes finales et administratrice du site |
+| Livrables | Front Angular, API NestJS, base PostgreSQL, back-office |
+| Contraintes | Temps limite, projet solo, simplicite d'utilisation |
+| KPI | Nombre de reservations, autonomie de gestion, disponibilite |
+| Perimetre V1 | Consultation, reservation, agenda admin, gestion des creneaux |
+
+Encart "Point cle"
+- Un perimetre volontairement maitrise pour garantir une V1 fonctionnelle.
+
+Conseils visuels
+- Colonne gauche plus sombre et plus courte
+- Colonne droite plus claire
+- Lignes alternees avec fond leger pour la lisibilite
+
+---
+
+SLIDE 5 - PILOTAGE DU PROJET
+
+Type de slide
+- Frise chronologique en 4 etapes
+
+Mise en page
+- Titre en haut
+- Frise horizontale au centre avec 4 blocs numerotes
+- Sous chaque bloc : 2 ou 3 mots cles
+- En bas : mini encart "Resultat"
+
+Frise
+
+Etape 1 - Analyse
+- brief client
+- priorites
+- objectifs
+
+Etape 2 - Conception
+- architecture
+- parcours utilisateur
+- modele de donnees
+
+Etape 3 - Developpement
+- Angular
+- NestJS
+- PostgreSQL
+
+Etape 4 - Validation
+- tests
+- recettage
+- corrections
+
+Encart "Resultat"
+- Une progression par phases pour garder de la visibilite et prioriser les fonctions essentielles.
+
+Alternative si tu preferes un tableau
+
+| Phase | Actions principales | Resultat |
+|---|---|---|
+| Analyse | Comprendre le besoin, definir les priorites | Perimetre clarifie |
+| Conception | Choix techniques, structure du projet | Architecture validee |
+| Developpement | Front, back, base de donnees | V1 fonctionnelle |
+| Validation | Tests, recettage, ajustements | Livraison exploitable |
+
+---
+
+SLIDE 6 - SOLUTION PROPOSEE
+
+Type de slide
+- Schema de flux fonctionnel vertical ou horizontal
+
+Mise en page
+- Titre en haut
+- A gauche : parcours visiteur
+- A droite : back-office admin
+- Au centre ou entre les deux : base de donnees
+
+Contenu du schema
+
+[Visiteur]
+  -> [Site vitrine]
+  -> [Reservation en ligne]
+  -> [Base de donnees]
+  <- [Back-office admin]
+
+Details a afficher
+- Site vitrine : services, galerie, contact
+- Reservation : date, creneau, validation
+- Back-office : agenda, creation de creneaux, suppression de creneaux
+
+Conseils visuels
+- Utiliser deux couleurs : une pour l'espace public, une pour l'espace admin
+- Mettre la base de donnees comme bloc central ou bloc de liaison
+
+Message de bas de slide
+- Une plateforme unique pour la relation client et l'organisation interne.
+
+---
+
+SLIDE 9 - ARCHITECTURE TECHNIQUE
+
+Type de slide
+- Schema d'architecture en couches
+
+Mise en page
+- Titre en haut
+- Trois grands blocs empiles verticalement
+- Fleches descendantes entre les couches
+- A droite de chaque bloc : role principal
+
+Bloc 1
+- Front-end Angular
+- Role : interface publique, reservation, back-office
+
+Bloc 2
+- API NestJS
+- Role : authentification, rendez-vous, disponibilites
+
+Bloc 3
+- PostgreSQL + Prisma
+- Role : stockage et acces aux donnees
+
+Version tableau si necessaire
+
+| Couche | Technologie | Role |
+|---|---|---|
+| Front-end | Angular | Interface publique et back-office |
+| Back-end | NestJS | API et regles metier |
+| ORM | Prisma | Acces et manipulation des donnees |
+| Base | PostgreSQL | Stockage des rendez-vous et creneaux |
+
+Conseils visuels
+- Utiliser des blocs rectangulaires avec pictogrammes
+- Ajouter une mention discrete : routes publiques / routes protegees
+
+---
+
+SLIDE 10 - LOGIQUE METIER
+
+Type de slide
+- Schema de processus metier
+
+Mise en page
+- Titre en haut
+- Suite de 5 blocs horizontaux avec fleches
+- Sous le schema : encart "Regles metier"
+
+Schema principal
+- Creation d'un creneau
+- Creneau simple ou recurrent
+- Affichage des occurrences disponibles
+- Selection par la cliente
+- Verification puis creation du rendez-vous
+
+Encart "Regles metier"
+- verification de la validite de l'occurrence
+- prevention des doubles reservations
+- impossibilite de supprimer un creneau deja reserve
+
+Conseils visuels
+- Utiliser un style plus technique que commercial
+- Mettre en evidence le bloc "Verification" avec une couleur d'accent
+
+Phrase de synthese
+- La valeur du projet repose aussi sur la fiabilite de la logique de reservation.
+
+---
+
+SLIDE 11 - TESTS ET RECETTAGE
+
+Type de slide
+- Tableau de verification
+
+Mise en page
+- Titre en haut
+- Tableau central 3 colonnes
+- Bas de slide : courte conclusion
+
+Tableau
+
+| Fonctionnalite | Verification | Resultat attendu |
+|---|---|---|
+| Creation de creneau | Test fonctionnel admin | Creneau ajoute correctement |
+| Creneau recurrent | Test metier back-end | Occurrences futures generees |
+| Reservation | Test parcours utilisateur | Rendez-vous enregistre |
+| Conflit de reservation | Test metier back-end | Double reservation bloquee |
+| Suppression de creneau reserve | Test admin | Suppression refusee |
+| Responsive | Test desktop et mobile | Affichage adapte |
+
+Conclusion a mettre en bas
+- Les cas les plus sensibles ont ete testes pour garantir une V1 fiable et exploitable.
+
+Conseils visuels
+- Utiliser un pictogramme de validation sur la derniere colonne si tu veux alleger le tableau
+
+---
+
+SLIDE 12 - BILAN, LIMITES ET PERSPECTIVES
+
+Type de slide
+- Tableau 3 colonnes ou 3 cartes verticales
+
+Mise en page
+- Titre en haut
+- Trois colonnes de meme largeur
+- Chaque colonne a un titre et 3 ou 4 puces max
+
+Colonne 1 - Reussites
+- V1 fonctionnelle
+- Back-office exploitable
+- Architecture claire
+- Logique metier testee
+
+Colonne 2 - Limites
+- SEO encore perfectible
+- Authentification admin simple
+- V1 centree sur les fonctions essentielles
+
+Colonne 3 - Evolutions
+- Notifications email
+- Confirmation ou annulation cliente
+- Tableau de bord KPI
+- Optimisation SEO locale
+
+Conseils visuels
+- Reussites en ton positif
+- Limites en ton neutre
+- Evolutions en ton dynamique
+
+Phrase de conclusion
+- Le projet repond au besoin principal du client tout en ouvrant des perspectives d'amelioration realistes.
+
+---
+
+RECOMMANDATIONS GENERALES DE DESIGN
+
+- Garder une meme grille sur toutes les slides : titre en haut, contenu centre, synthese en bas si utile
+- Limiter a 3 couleurs principales
+- Mettre peu de texte sur les schemas, privilegier des mots cles
+- Pour les tableaux, ne pas depasser 6 a 8 lignes
+- Utiliser les captures d'ecran comme preuves, pas comme fond decoratif

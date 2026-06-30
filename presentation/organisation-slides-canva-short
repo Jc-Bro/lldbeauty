@@ -1,0 +1,155 @@
+# Version ultra courte 100% Canva
+
+Texte court, pret a coller directement dans les schemas et tableaux.
+
+---
+
+SLIDE 3 - SCHEMA PROBLEME -> SOLUTION -> BENEFICES
+
+Probleme
+- Pas de presence web centralisee
+- Reservation peu fluide
+- Gestion manuelle des creneaux
+
+Solution
+- Site vitrine
+- Reservation en ligne
+- Back-office admin
+
+Benefices
+- Plus de visibilite
+- Gain de temps
+- Organisation simplifiee
+- Image professionnelle
+
+---
+
+SLIDE 4 - TABLEAU NOTE DE CADRAGE
+
+| Element | Contenu |
+|---|---|
+| Objet | Site vitrine + reservation + back-office |
+| Finalite | Visibilite et gestion des rendez-vous |
+| Client | Lucie Deroff |
+| Utilisateurs | Clientes et administratrice |
+| Livrables | Angular, NestJS, PostgreSQL, back-office |
+| Contraintes | Temps, projet solo, simplicite |
+| KPI | Reservations, autonomie, disponibilite |
+| Perimetre V1 | Consultation, reservation, agenda, creneaux |
+
+---
+
+SLIDE 5 - FRISE DE PILOTAGE
+
+1. Analyse
+- besoin
+- priorites
+- objectifs
+
+2. Conception
+- architecture
+- parcours
+- donnees
+
+3. Developpement
+- front
+- back
+- base de donnees
+
+4. Validation
+- tests
+- recettage
+- corrections
+
+---
+
+SLIDE 6 - SCHEMA FONCTIONNEL
+
+Visiteur
+-> Site vitrine
+-> Reservation en ligne
+-> Base de donnees
+<- Back-office admin
+
+Site vitrine
+- services
+- galerie
+- contact
+
+Reservation
+- date
+- creneau
+- validation
+
+Back-office
+- agenda
+- creation de creneaux
+- suppression de creneaux
+
+---
+
+SLIDE 9 - SCHEMA D'ARCHITECTURE
+
+Front-end Angular
+- site public
+- reservation
+- back-office
+
+API NestJS
+- auth
+- appointments
+- availability
+
+PostgreSQL + Prisma
+- rendez-vous
+- disponibilites
+- acces aux donnees
+
+Version tableau
+
+| Couche | Technologie | Role |
+|---|---|---|
+| Front-end | Angular | Interface publique et admin |
+| Back-end | NestJS | API et regles metier |
+| ORM | Prisma | Acces aux donnees |
+| Base | PostgreSQL | Stockage |
+
+---
+
+SLIDE 10 - SCHEMA LOGIQUE METIER
+
+Creation d'un creneau
+-> Creneau simple ou recurrent
+-> Occurrences disponibles
+-> Selection cliente
+-> Verification
+-> Rendez-vous cree
+
+Regles metier
+- occurrence valide
+- pas de doublon
+- suppression bloquee si reserve
+
+---
+
+SLIDE 11 - TABLEAU TESTS / RECETTAGE
+
+| Fonctionnalite | Verification | Resultat |
+|---|---|---|
+| Creation de creneau | Test admin | OK |
+| Creneau recurrent | Test back-end | OK |
+| Reservation | Test parcours | OK |
+| Conflit de reservation | Test metier | OK |
+| Suppression creneau reserve | Test admin | OK |
+| Responsive | Test desktop/mobile | OK |
+
+---
+
+SLIDE 12 - TABLEAU BILAN
+
+| Reussites | Limites | Evolutions |
+|---|---|---|
+| V1 fonctionnelle | SEO perfectible | Notifications email |
+| Back-office exploitable | Auth admin simple | Annulation cliente |
+| Architecture claire | V1 centree sur l'essentiel | Tableau de bord KPI |
+| Logique testee | Industrialisation a poursuivre | SEO local renforce |

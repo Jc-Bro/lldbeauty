@@ -1,0 +1,266 @@
+# Version prete a copier dans Canva / PowerPoint
+
+Projet : Site vitrine, reservation en ligne et back-office pour Lucie Deroff
+Formation : MBA Developpeur full-stack
+
+---
+
+SLIDE 1 - TITRE
+
+Titre
+Creation d'un site de reservation et de gestion pour Lucie Deroff
+
+Sous-titre
+Workshop client M2 - MBA Developpeur full-stack
+
+Texte a mettre
+- Projet realise pour une professionnelle du rehaussement et de l'extension de cils
+- Objectif : visibilite, reservation en ligne et gestion des rendez-vous
+
+Ce que je dis
+Bonjour, je vais vous presenter le projet que j'ai realise dans le cadre du workshop client pour Lucie Deroff. Il s'agit d'un site vitrine avec un systeme de reservation en ligne et un back-office de gestion. L'objectif etait de repondre a un besoin concret de visibilite et d'organisation.
+
+Visuel conseille
+- Capture de la page d'accueil du site
+
+---
+
+SLIDE 2 - CLIENT ET BESOIN
+
+Titre
+Presentation du client et besoin initial
+
+Texte a mettre
+- Cliente : Lucie Deroff
+- Activite : rehaussement et extension de cils
+- Besoins :
+  - se faire connaitre en ligne
+  - faciliter la prise de rendez-vous
+  - gerer simplement les disponibilites
+
+Ce que je dis
+Lucie Deroff exerce dans le domaine de la beaute du regard. Son besoin etait double : disposer d'une presence en ligne professionnelle pour developper sa visibilite, et avoir un outil simple pour gerer ses rendez-vous et ses creneaux.
+
+Visuel conseille
+- 3 pictogrammes : visibilite, reservation, gestion
+
+---
+
+SLIDE 3 - PROBLEMATIQUE ET OBJECTIFS
+
+Titre
+Problematique et objectifs du projet
+
+Texte a mettre
+- Problematique : absence d'outil centralise pour la reservation et la gestion
+- Objectifs :
+  - creer une vitrine professionnelle
+  - permettre la reservation en ligne
+  - proposer un back-office simple a utiliser
+  - poser une base favorable au referencement
+
+Ce que je dis
+La demande de depart etait assez globale. Mon travail a consiste a la transformer en objectifs concrets et realisables dans le cadre du workshop. Le projet devait etre utile pour la cliente, mais aussi suffisamment cadre pour livrer une premiere version fonctionnelle.
+
+Visuel conseille
+- Schema : Probleme -> Solution -> Benefices
+
+---
+
+SLIDE 4 - NOTE DE CADRAGE
+
+Titre
+Note de cadrage du projet
+
+Texte a mettre
+- Objet : site vitrine + reservation + back-office
+- Finalite : ameliorer la visibilite et la gestion des rendez-vous
+- Livrables :
+  - front-end Angular
+  - API NestJS
+  - base PostgreSQL
+  - interface d'administration
+- Contraintes : delai du workshop, projet realise seul, simplicite d'usage
+
+Ce que je dis
+La note de cadrage m'a permis de definir un perimetre clair. J'ai volontairement retenu les fonctionnalites essentielles pour garantir la livraison d'une V1 stable : un site public, un systeme de reservation et un back-office d'administration.
+
+Visuel conseille
+- Tableau synthetique de cadrage
+
+---
+
+SLIDE 5 - PILOTAGE DU PROJET
+
+Titre
+Organisation et pilotage
+
+Texte a mettre
+- Phase 1 : analyse du besoin
+- Phase 2 : conception technique
+- Phase 3 : developpement front-end et back-end
+- Phase 4 : tests, recettage, ajustements
+- Travail en autonomie avec priorisation des taches
+
+Ce que je dis
+J'ai organise le projet en plusieurs phases pour garder une vision claire de l'avancement. L'idee etait d'avancer progressivement, en priorisant d'abord les fonctionnalites coeur de metier, puis les controles de qualite et les ajustements.
+
+Visuel conseille
+- Frise chronologique ou planning en 4 etapes
+
+---
+
+SLIDE 6 - SOLUTION PROPOSEE
+
+Titre
+Vue d'ensemble de la solution
+
+Texte a mettre
+- Site vitrine pour presenter l'activite
+- Module de reservation avec choix des dates et creneaux
+- Back-office pour consulter les rendez-vous
+- Gestion des disponibilites avec creation et suppression de creneaux
+
+Ce que je dis
+La solution que j'ai proposee centralise tout le parcours. Le visiteur peut decouvrir l'activite, consulter les prestations et reserver un creneau. De son cote, la cliente peut visualiser ses rendez-vous et administrer ses disponibilites depuis un espace dedie.
+
+Visuel conseille
+- Schema fonctionnel du parcours utilisateur
+
+---
+
+SLIDE 7 - REALISATION FRONT-END
+
+Titre
+Interface publique et reservation
+
+Texte a mettre
+- Site vitrine moderne et structure
+- Presentation des services et galerie
+- Module de reservation integre
+- Calendrier navigable
+- Interface responsive desktop / mobile
+
+Ce que je dis
+Le front-end a ete pense pour repondre a deux objectifs : valoriser l'image de marque de la cliente et faciliter la reservation. Le parcours ne se limite pas a un simple formulaire : l'utilisateur peut naviguer dans les dates et choisir un creneau disponible.
+
+Visuel conseille
+- Captures de la home et de la section reservation
+
+---
+
+SLIDE 8 - REALISATION BACK-OFFICE
+
+Titre
+Back-office d'administration
+
+Texte a mettre
+- Connexion admin
+- Visualisation des rendez-vous pris
+- Vue agenda semaine / mois
+- Creation de creneaux
+- Suppression des creneaux non reserves
+- Gestion de recurrence quotidienne et hebdomadaire
+
+Ce que je dis
+Le back-office est une partie importante du projet, car il repond directement au besoin d'autonomie de la cliente. Elle peut suivre les rendez-vous, naviguer dans son agenda et gerer ses creneaux sans intervention technique.
+
+Visuel conseille
+- Captures du calendrier admin et de l'ecran de gestion des disponibilites
+
+---
+
+SLIDE 9 - ARCHITECTURE TECHNIQUE
+
+Titre
+Architecture full-stack
+
+Texte a mettre
+- Front-end : Angular
+- Back-end : NestJS
+- Base de donnees : PostgreSQL
+- ORM : Prisma
+- Routes publiques pour la reservation
+- Routes protegees pour l'administration
+
+Ce que je dis
+J'ai choisi une architecture separee avec Angular pour le front, NestJS pour l'API et PostgreSQL pour la persistance des donnees. Cette organisation permet d'avoir une base solide, plus lisible et plus facile a faire evoluer.
+
+Visuel conseille
+- Schema Angular -> API NestJS -> PostgreSQL
+
+---
+
+SLIDE 10 - LOGIQUE METIER
+
+Titre
+Logique metier et choix techniques cles
+
+Texte a mettre
+- Gestion des creneaux simples et recurrents
+- Expansion des occurrences futures
+- Controle de disponibilite lors de la reservation
+- Prevention des doubles reservations
+- Blocage de la suppression d'un creneau deja reserve
+
+Ce que je dis
+Cette partie montre la valeur technique du projet. J'ai mis en place des regles metier pour gerer les reservations de maniere fiable, notamment sur les creneaux recurrents et sur les conflits. Cela va au-dela d'un simple enregistrement de formulaire.
+
+Visuel conseille
+- Schema du cycle : creneau -> occurrence -> reservation -> controle
+
+---
+
+SLIDE 11 - TESTS ET RECETTAGE
+
+Titre
+Tests, recettage et qualite
+
+Texte a mettre
+- Tests unitaires sur la logique des disponibilites
+- Tests sur les reservations recurrents
+- Verification des conflits de reservation
+- Verification de l'affichage admin
+- Verification du responsive
+
+Ce que je dis
+J'ai verifie les cas les plus sensibles du projet, notamment les disponibilites, les reservations recurrentes et les conflits. L'objectif etait de livrer une premiere version fonctionnelle, fiable et coherente avec les attendus de la grille full-stack.
+
+Visuel conseille
+- Tableau fonctionnalite / verification / resultat
+
+---
+
+SLIDE 12 - BILAN ET PERSPECTIVES
+
+Titre
+Bilan, limites et evolutions possibles
+
+Texte a mettre
+- Reussites :
+  - V1 fonctionnelle
+  - back-office exploitable
+  - architecture claire
+- Limites :
+  - SEO encore perfectible
+  - authentification admin simple
+  - priorite donnee aux fonctions essentielles
+- Evolutions :
+  - notifications email
+  - confirmation ou annulation cote cliente
+  - tableau de bord KPI
+  - optimisation SEO locale
+
+Ce que je dis
+Ce projet m'a permis de travailler a la fois le pilotage et la realisation technique complete d'une application. J'ai livre une base fonctionnelle qui repond au besoin principal, tout en identifiant des pistes d'amelioration realistes pour une version 2.
+
+Visuel conseille
+- 3 colonnes : reussites / limites / evolutions
+
+---
+
+CONSEILS D'USAGE
+
+- Cette version est pensee pour etre copiable rapidement dans Canva ou PowerPoint.
+- Tu peux raccourcir le texte affiche sur les slides et garder les paragraphes "Ce que je dis" comme notes orales.
+- Si besoin, tu peux garder 1 minute par slide avec un peu plus de temps sur les slides 8, 9 et 10.

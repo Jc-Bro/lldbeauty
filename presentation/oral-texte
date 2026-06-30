@@ -1,0 +1,242 @@
+# Texte oral complet - Soutenance workshop client M2
+
+Projet : Site vitrine, reservation en ligne et back-office pour Lucie Deroff
+Formation : MBA Developpeur full-stack
+Ton vise : intermediaire, professionnel, fluide, naturel a l'oral
+Duree cible : environ 20 minutes
+
+---
+
+SLIDE 1 - INTRODUCTION DU PROJET
+
+Bonjour a toutes et a tous.
+
+Aujourd'hui, je vais vous presenter le projet que j'ai realise dans le cadre du workshop client de fin de deuxieme annee. Il s'agit d'un projet mene pour une cliente reelle, Lucie Deroff, qui exerce dans le domaine du rehaussement et de l'extension de cils.
+
+L'objectif de ce projet etait de concevoir et de developper une solution complete qui reponde a des besoins concrets de son activite. Plus precisement, j'ai realise un site vitrine permettant de presenter ses prestations, un module de reservation en ligne pour faciliter la prise de rendez-vous, ainsi qu'un back-office pour lui permettre de gerer ses disponibilites et de visualiser les rendez-vous pris.
+
+Au cours de cette presentation, je vais d'abord revenir sur la demande du client et les objectifs du projet. Ensuite, je presenterai le cadrage et le pilotage mis en place. Puis, je montrerai la solution realisee, aussi bien sur le plan fonctionnel que technique. Enfin, je terminerai par la partie tests, recettage et bilan du projet.
+
+L'idee generale de cette soutenance est donc de montrer a la fois ma capacite a comprendre un besoin client reel, a piloter un projet de bout en bout, et a realiser une solution full-stack coherente et exploitable.
+
+Transition : je vais commencer par presenter plus precisement le client et son besoin initial.
+
+---
+
+SLIDE 2 - PRESENTATION DU CLIENT ET DE LA DEMANDE
+
+Lucie Deroff exerce dans le secteur de la beaute, et plus particulierement dans le rehaussement et l'extension de cils. Son activite repose beaucoup sur la relation de proximite avec ses clientes, sur l'image de marque, sur la confiance, mais aussi sur une bonne organisation du planning.
+
+Son besoin de depart etait assez clair dans son intention, mais encore large dans sa formulation. Elle souhaitait disposer d'un site internet pour mieux se faire connaitre, renforcer sa visibilite en ligne, et permettre a ses clientes de reserver plus facilement un rendez-vous. Elle avait egalement besoin d'un espace d'administration simple qui lui permette de visualiser ses rendez-vous et de gerer ses creneaux.
+
+Ce besoin repondait donc a trois enjeux principaux.
+
+Le premier enjeu etait un enjeu de visibilite. Aujourd'hui, pour ce type d'activite, la presence en ligne est importante pour inspirer confiance, presenter clairement les prestations, et permettre aux clientes potentielles de se projeter.
+
+Le deuxieme enjeu etait un enjeu de fluidite dans la prise de rendez-vous. L'idee etait de simplifier le parcours de reservation en evitant une gestion trop informelle ou trop manuelle.
+
+Le troisieme enjeu etait un enjeu d'organisation interne. Au-dela du site visible par les clientes, il fallait aussi un outil utile au quotidien pour administrer les disponibilites et avoir une vue claire sur les rendez-vous.
+
+A partir de cette demande, mon travail a consiste a transformer un besoin metier en solution digitale coherente, realiste et faisable dans le cadre du workshop.
+
+Transition : a partir de cette demande, j'ai ensuite defini la problematique du projet et les objectifs a atteindre.
+
+---
+
+SLIDE 3 - PROBLEMATIQUE ET OBJECTIFS
+
+La problematique centrale du projet pouvait se resumer de la maniere suivante : comment proposer a une professionnelle independante un outil simple, efficace et professionnel qui lui permette a la fois de gagner en visibilite, de faciliter la reservation de ses prestations et d'ameliorer sa gestion quotidienne des rendez-vous ?
+
+Cette problematique m'a amene a definir plusieurs objectifs concrets.
+
+Le premier objectif etait de creer une vitrine professionnelle pour valoriser l'activite de la cliente. Il ne s'agissait pas uniquement d'avoir une presence sur internet, mais de proposer une interface claire, esthetique et rassurante, en coherence avec l'univers de la beaute.
+
+Le deuxieme objectif etait de mettre en place un systeme de reservation en ligne. L'utilisateur devait pouvoir consulter les disponibilites, choisir une date, selectionner un creneau, puis valider sa demande de rendez-vous dans un parcours simple et comprehensible.
+
+Le troisieme objectif etait de donner de l'autonomie a la cliente grace a un back-office. Cet espace devait lui permettre de visualiser les rendez-vous pris, de naviguer dans son agenda et de creer ou supprimer des creneaux.
+
+Enfin, le quatrieme objectif etait de poser une base exploitable pour le referencement et pour de futures evolutions. Meme si la V1 restait volontairement maitrisee, il etait important que l'architecture et le contenu permettent d'envisager une suite pertinente.
+
+En resume, je n'ai pas cherche a tout faire, mais a bien faire l'essentiel. C'etait un point important, car dans un projet de workshop, la qualite du cadrage et du choix de perimetre est aussi importante que le developpement lui-meme.
+
+Transition : c'est justement ce qui m'amene a la note de cadrage et a la definition du perimetre du projet.
+
+---
+
+SLIDE 4 - NOTE DE CADRAGE
+
+La phase de cadrage a ete essentielle pour transformer la demande initiale en projet realisable. Elle m'a permis de fixer le perimetre, les priorites, les contraintes et les livrables attendus.
+
+L'objet du projet etait la creation d'un site vitrine avec un module de reservation en ligne et un back-office d'administration. La finalite etait double : d'une part ameliorer la visibilite de la cliente, et d'autre part faciliter la gestion de son activite au quotidien.
+
+Concernant les livrables, j'ai retenu quatre grands ensembles. D'abord l'interface publique du site, c'est-a-dire la partie visible par les clientes. Ensuite l'API back-end qui porte la logique metier. Puis la base de donnees pour stocker les disponibilites et les rendez-vous. Enfin le back-office d'administration pour la gestion interne.
+
+J'ai egalement integre les contraintes du projet. La premiere contrainte etait le temps imparti par le workshop. La deuxieme etait le fait que le projet etait mene seul. La troisieme concernait la simplicite d'usage, car l'outil devait etre facile a prendre en main par la cliente.
+
+Sur la question des indicateurs, meme si le projet etait une V1, plusieurs points pouvaient deja etre identifies comme des reperes : la capacite du site a recevoir des reservations, la facilite de gestion des creneaux par l'administratrice, et plus globalement la disponibilite d'un outil centralise.
+
+Le point important dans cette phase, c'est que j'ai volontairement maitrise le perimetre. J'ai choisi de me concentrer sur les fonctionnalites a plus forte valeur : consultation du site, reservation, visualisation des rendez-vous, gestion des creneaux. Cela m'a permis de livrer une premiere version fonctionnelle plutot que de disperser les efforts sur trop de sujets secondaires.
+
+Transition : une fois ce perimetre defini, j'ai organise le projet pour pouvoir avancer de facon structuree.
+
+---
+
+SLIDE 5 - PILOTAGE DU PROJET
+
+Le pilotage du projet a repose sur une organisation en plusieurs phases. Meme si j'etais seul sur la realisation, il etait important de garder une logique de gestion de projet avec des etapes claires, des priorites et une vision d'ensemble.
+
+La premiere phase a ete l'analyse du besoin. Elle consistait a clarifier la demande, identifier les attentes prioritaires et comprendre ce qui etait reellement utile pour la cliente.
+
+La deuxieme phase a concerne la conception technique. J'ai travaille sur l'architecture globale, sur le decoupage entre front-end, back-end et base de donnees, ainsi que sur les principales donnees a gerer, comme les disponibilites, les rendez-vous et les regles de reservation.
+
+La troisieme phase a ete le developpement. J'ai fait avancer en parallele la partie front-end pour l'interface publique et l'administration, et la partie back-end pour la logique metier et la persistance des donnees.
+
+Enfin, la quatrieme phase a porte sur la validation : tests, recettage et ajustements. Cette phase etait importante pour s'assurer que la solution etait non seulement developpee, mais aussi exploitable dans un usage reel.
+
+Sur la partie pilotage, j'ai egalement du faire des arbitrages. Par exemple, certaines evolutions interessantes, comme des notifications plus avancees ou une securisation plus poussee, ont ete identifiees mais volontairement repoussees pour ne pas compromettre la livraison d'une V1 stable.
+
+Ce pilotage m'a permis de garder une ligne directrice simple : prioriser les fonctions coeur de metier, assurer la coherence technique, puis consolider la qualite de l'ensemble.
+
+Transition : je vais maintenant presenter la solution globale qui a ete retenue pour repondre a ce besoin.
+
+---
+
+SLIDE 6 - SOLUTION PROPOSEE
+
+La solution que j'ai mise en place repose sur une logique assez simple du point de vue utilisateur, mais complete dans son fonctionnement global.
+
+Du cote public, le visiteur arrive sur le site et peut consulter les informations principales sur l'activite. Il retrouve les prestations, la galerie, ainsi que les elements de contact. A l'interieur de ce meme site, il peut acceder a un module de reservation qui lui permet de choisir une date et un creneau disponible.
+
+Une fois la reservation effectuee, les informations sont transmises a la partie back-end puis stockees en base de donnees.
+
+Du cote administration, la cliente dispose d'un back-office qui lui permet d'avoir une vision claire des rendez-vous pris. Elle peut egalement creer des creneaux, en supprimer lorsque cela est possible, et gerer sa disponibilite de facon plus centralisee.
+
+L'interet de cette solution est qu'elle centralise plusieurs besoins dans une seule plateforme. Elle sert a la fois d'outil de communication, d'outil de prise de rendez-vous et d'outil d'organisation interne.
+
+C'est aussi une solution qui reste evolutive. L'architecture choisie permet d'envisager de futures ameliorations sans remettre en cause tout le socle du projet.
+
+Transition : je vais maintenant detailler ce qui a ete realise sur la partie front-end, c'est-a-dire l'interface visible par les utilisatrices.
+
+---
+
+SLIDE 7 - REALISATION FRONT-END
+
+Sur la partie front-end, l'objectif etait de proposer une interface qui reponde a la fois a des enjeux d'image et a des enjeux d'usage.
+
+Le site joue d'abord un role de vitrine. Il presente l'univers de la cliente, ses prestations, et donne une image professionnelle de son activite. Dans un domaine comme celui de la beaute, cet aspect est important, car la premiere impression compte beaucoup dans la relation de confiance.
+
+J'ai structure le front-end autour de plusieurs sections : une page d'accueil, une presentation des services, une galerie, une section de reservation et une partie contact. Cette organisation permet d'avoir un parcours simple pour le visiteur.
+
+La partie la plus importante du point de vue fonctionnel est le module de reservation. L'utilisateur peut selectionner un service, renseigner ses informations, naviguer dans un calendrier, choisir une date puis un creneau disponible. L'idee etait d'aller au-dela d'un simple formulaire en proposant une logique de selection plus claire et plus confortable.
+
+J'ai egalement fait attention a la structure du front-end. Le projet a ete organise avec Angular en composants distincts, ce qui facilite la lisibilite du code, la maintenance et la reutilisation des blocs d'interface.
+
+Enfin, le responsive faisait partie des attentes importantes. Le site devait rester exploitable sur mobile, car une partie importante des utilisatrices potentielles consultera probablement ce type de service depuis leur telephone.
+
+Au final, cette partie front-end repond a deux objectifs principaux : valoriser l'image de la cliente et simplifier l'acces a la reservation.
+
+Transition : en complement de cette partie publique, j'ai developpe un back-office pour la gestion quotidienne de l'activite.
+
+---
+
+SLIDE 8 - REALISATION BACK-OFFICE
+
+Le back-office est une partie tres importante du projet, car il repond directement a un besoin operationnel du client. Dans beaucoup de projets, on insiste surtout sur la partie visible. Ici, j'ai aussi voulu mettre l'accent sur l'outil de gestion interne, car c'etait un vrai besoin metier.
+
+La premiere fonction du back-office est l'authentification. L'idee est de separer clairement l'espace public et l'espace d'administration.
+
+Une fois connectee, la cliente peut consulter ses rendez-vous dans une interface de type agenda. J'ai prevu une navigation avec differentes vues, notamment une vue hebdomadaire et une vue mensuelle. Cela permet d'avoir une lecture plus souple du planning selon le niveau de detail souhaite.
+
+La deuxieme grande fonctionnalite concerne la gestion des disponibilites. La cliente peut creer de nouveaux creneaux, renseigner une date, une heure de debut, une heure de fin, et associer si besoin un service. Elle peut aussi gerer la recurrence, par exemple quotidienne ou hebdomadaire.
+
+J'ai egalement prevu la possibilite de supprimer des creneaux, mais avec une contrainte metier importante : un creneau deja reserve ne doit pas pouvoir etre supprime librement. Cette regle protege la coherence de l'agenda et evite des situations incoherentes.
+
+D'un point de vue metier, ce back-office est important, car il donne de l'autonomie a la cliente. Elle n'a pas besoin de passer par une intervention technique pour administrer les disponibilites les plus courantes.
+
+D'un point de vue evaluation, cette partie est aussi strategique, car la grille full-stack mentionne explicitement l'importance de l'administration du site ou de l'application.
+
+Transition : pour soutenir cette partie fonctionnelle, il fallait une architecture technique claire et coherente.
+
+---
+
+SLIDE 9 - ARCHITECTURE TECHNIQUE
+
+L'architecture technique du projet repose sur une separation claire entre le front-end, le back-end et la base de donnees.
+
+Pour le front-end, j'ai utilise Angular. Ce choix me permettait de structurer l'interface en composants, de gerer proprement les interactions utilisateur et de separer clairement les differentes zones du site et du back-office.
+
+Pour le back-end, j'ai utilise NestJS. C'est un framework qui permet d'organiser l'API de maniere claire, avec des modules, des controleurs et des services. Dans ce projet, cela m'a aide a bien separer les sujets comme l'authentification, les rendez-vous et les disponibilites.
+
+Pour la base de donnees, j'ai utilise PostgreSQL. C'est une solution robuste et adaptee pour stocker des donnees structurees comme les rendez-vous, les creneaux, les dates et les informations associees.
+
+Enfin, j'ai utilise Prisma comme couche d'acces aux donnees. Cela facilite les interactions avec la base, tout en gardant une logique de code plus lisible et plus maintenable.
+
+Cette architecture presente plusieurs avantages. D'abord, elle separe bien les responsabilites. Ensuite, elle facilite l'evolution future du projet. Enfin, elle donne une base technique serieuse pour un projet full-stack, meme dans une premiere version.
+
+J'ai egalement separe les routes publiques, par exemple pour la consultation des disponibilites ou la reservation, des routes protegees pour l'administration. Cela permet deja de poser un premier niveau de structuration en matiere d'acces et de securite fonctionnelle.
+
+Transition : au-dela de la stack utilisee, un des points les plus interessants du projet concerne la logique metier de reservation.
+
+---
+
+SLIDE 10 - LOGIQUE METIER ET CHOIX TECHNIQUES CLES
+
+Cette slide est sans doute celle qui montre le mieux la dimension developpeur full-stack du projet, car elle porte sur la logique metier et pas seulement sur l'interface.
+
+L'un des sujets techniques importants a ete la gestion des creneaux. Un creneau peut etre simple, c'est-a-dire ponctuel, ou recurrent, par exemple quotidien ou hebdomadaire. Cela signifie que l'application ne doit pas seulement enregistrer une date, mais aussi etre capable d'interpreter correctement des regles de recurrence.
+
+Lorsque l'on cree un creneau recurrent, la logique du back-end permet d'en generer les occurrences futures dans une fenetre de temps definie. Cela rend la reservation plus souple pour l'utilisateur final tout en evitant de creer manuellement chaque occurrence.
+
+Un deuxieme point important est le controle de la validite d'une reservation. Lorsqu'une utilisatrice choisit un creneau, il faut verifier que l'occurrence selectionnee est bien autorisee, qu'elle correspond a la recurrence definie, et qu'elle n'est pas deja reservee.
+
+J'ai donc mis en place une prevention des doubles reservations. Si un creneau est deja pris, la creation d'un nouveau rendez-vous sur cette meme occurrence doit etre refusee.
+
+Enfin, j'ai egalement integre une regle de coherence sur la suppression des creneaux. Lorsqu'un creneau comporte deja un rendez-vous actif, il ne doit pas etre supprime comme s'il etait vide. Cela permet de proteger la logique metier et de conserver une gestion fiable de l'agenda.
+
+Ce sont des points importants, car ils montrent que le projet ne se limite pas a un site joli ou a un formulaire connecte a une base. Il y a une vraie logique metier derriere l'outil, avec des regles de reservation, de recurrence et de controle.
+
+Transition : pour que cette logique soit credible, il fallait ensuite la verifier avec des tests et une phase de recettage.
+
+---
+
+SLIDE 11 - TESTS, RECETTAGE ET QUALITE
+
+La phase de tests et de recettage a ete importante pour valider la fiabilite de la solution. L'objectif n'etait pas seulement d'avoir une application qui fonctionne en apparence, mais une application qui gere correctement les cas sensibles.
+
+J'ai d'abord porte une attention particuliere aux tests unitaires sur le back-end, notamment sur la logique des disponibilites et des reservations. Ces tests permettaient de verifier plusieurs comportements essentiels.
+
+Par exemple, j'ai verifie que les creneaux ponctuels futurs etaient bien conserves, que les anciens creneaux etaient bien filtres lorsqu'ils etaient passes, et que les creneaux recurrents etaient correctement developpes en occurrences futures.
+
+J'ai aussi teste la logique de reservation sur les occurrences recurrentes, ainsi que les conflits de reservation. Cela permettait de s'assurer qu'une meme occurrence ne pouvait pas etre reservee plusieurs fois.
+
+Sur la partie administration, j'ai verifie le comportement global des parcours : consultation des rendez-vous, creation de creneaux, et refus de suppression lorsqu'un creneau est deja lie a un rendez-vous actif.
+
+J'ai egalement pris en compte la question du responsive pour verifier que l'interface restait lisible et exploitable sur plusieurs types d'ecrans.
+
+Cette phase de validation est importante a mettre en avant dans le cadre du workshop, car elle repond directement a plusieurs criteres d'evaluation : la qualite de la structuration technique, la formalisation du recettage, la correction des problemes identifies, et la prise en compte du responsive et du mobile first.
+
+Transition : pour finir, je vais presenter le bilan du projet, ses limites et les perspectives d'evolution.
+
+---
+
+SLIDE 12 - BILAN, LIMITES ET PERSPECTIVES
+
+Pour conclure, je dirais que ce projet m'a permis de travailler de facon tres concrete a la fois la gestion de projet et la realisation technique full-stack.
+
+Parmi les principaux points positifs, je retiens d'abord le fait d'avoir livre une premiere version fonctionnelle repondant au besoin principal du client. Le site permet de valoriser l'activite, de prendre des rendez-vous et d'administrer les creneaux depuis un back-office dedie.
+
+Je retiens egalement la coherence de l'architecture. Le choix d'une separation entre front-end, back-end et base de donnees donne une base serieuse, lisible et evolutive.
+
+Autre point fort, la logique metier a ete pensee au-dela du minimum fonctionnel. La gestion des creneaux recurrents, des conflits de reservation et des regles de suppression apporte une vraie valeur a l'outil.
+
+En revanche, il y a aussi des limites. D'abord, le SEO reste a approfondir. Le site constitue une bonne base de visibilite, mais une vraie strategie de referencement local pourrait etre developpee davantage.
+
+Ensuite, l'authentification admin reste simple dans cette V1. Elle repond au besoin fonctionnel du projet, mais pourrait etre renforcee dans une version plus avancee.
+
+Enfin, comme souvent dans un projet cadre dans le temps, j'ai fait le choix de me concentrer sur les fonctions essentielles plutot que d'ajouter trop de fonctionnalites secondaires.
+
+En termes de perspectives, plusieurs evolutions seraient pertinentes : l'ajout de notifications email, la possibilite pour la cliente ou l'utilisatrice de confirmer ou d'annuler certains rendez-vous selon un cadre defini, la mise en place d'un petit tableau de bord avec des indicateurs, ou encore un travail plus pousse sur le referencement local.
+
+En conclusion, ce projet m'a permis de mettre en pratique une approche complete : comprendre un besoin, cadrer un projet, piloter sa realisation, construire une solution technique et la verifier. C'est ce qui, selon moi, fait l'interet principal de ce workshop client.
+
+Je vous remercie pour votre attention, et je suis disponible pour repondre a vos questions.

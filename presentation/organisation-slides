@@ -1,0 +1,315 @@
+# Plan detaille de soutenance - Workshop client M2
+
+Projet : Site vitrine et de reservation pour Lucie Deroff
+Formation : MBA Developpeur full-stack
+Positionnement : soutenance orientee jury / grille d'evaluation
+Duree cible : 15 minutes maximum
+Nombre de slides conseille : 12
+
+Objectif du support : montrer clairement la comprehension du besoin client, le cadrage, le pilotage du projet, la realisation technique full-stack, le recettage et le bilan professionnel.
+
+---
+
+SLIDE 1 - TITRE DU PROJET
+
+Nom de la slide
+- Creation d'un site de reservation et de gestion pour Lucie Deroff
+
+Contenu de la slide
+- Titre du projet
+- Ton nom
+- MBA Developpeur full-stack
+- Nom de la cliente : Lucie Deroff
+- Sous-titre : Site vitrine, reservation en ligne et back-office
+- Capture d'ecran de la page d'accueil du site
+
+Ce que je dois dire
+- Presenter rapidement le contexte du workshop client.
+- Expliquer qu'il s'agit d'un projet reel mene seul pour une professionnelle du rehaussement et de l'extension de cils.
+- Annoncer l'objectif principal : repondre a un besoin de visibilite, de reservation et d'organisation.
+
+---
+
+SLIDE 2 - PRESENTATION DU CLIENT ET DE LA DEMANDE
+
+Nom de la slide
+- Client, activite et besoin initial
+
+Contenu de la slide
+- Bloc 1 : cliente et secteur d'activite
+- Bloc 2 : besoins identifies
+- Bloc 3 : enjeux business
+- Visuels conseilles : photo du site existant si tu en as une, sinon pictogrammes "visibilite", "reservation", "gestion"
+- Texte cle :
+  - Se faire connaitre en ligne
+  - Faciliter la prise de rendez-vous
+  - Gerer facilement les disponibilites et les rendez-vous
+
+Ce que je dois dire
+- Expliquer que Lucie Deroff exerce dans le domaine du rehaussement et de l'extension de cils.
+- Dire que son besoin etait double : developper sa presence en ligne et simplifier son organisation quotidienne.
+- Insister sur le fait que la demande n'etait pas uniquement esthetique, mais aussi fonctionnelle et commerciale.
+
+---
+
+SLIDE 3 - PROBLEMATIQUE ET OBJECTIFS DU PROJET
+
+Nom de la slide
+- Problematique et objectifs
+
+Contenu de la slide
+- Schema simple : Probleme -> Solution -> Benefices
+- Probleme : absence d'outil centralise pour la prise de rendez-vous et la visibilite
+- Objectifs :
+  - proposer une vitrine professionnelle
+  - permettre la reservation en ligne
+  - donner de l'autonomie a la cliente avec un espace d'administration
+  - preparer une base exploitable pour le referencement
+- Benefices attendus : gain de temps, image plus professionnelle, meilleure accessibilite du service
+
+Ce que je dois dire
+- Montrer que la demande initiale a ete transformee en objectifs concrets.
+- Faire le lien entre besoin metier et solution numerique.
+- Expliquer que le projet devait rester realiste dans le cadre du workshop.
+
+---
+
+SLIDE 4 - NOTE DE CADRAGE
+
+Nom de la slide
+- Cadrage du projet
+
+Contenu de la slide
+- Tableau synthetique avec :
+  - Objet : creation d'un site vitrine avec module de reservation et back-office
+  - Finalite : ameliorer la visibilite et la gestion des rendez-vous
+  - Livrables : interface publique, API back-end, base de donnees PostgreSQL, back-office, documentation technique
+  - Contraintes : temps limite, projet realise seul, simplicite d'utilisation pour la cliente
+  - KPI possibles : disponibilite du service, nombre de reservations, autonomie de gestion des creneaux
+- Visuel conseille : tableau de note de cadrage ou diagramme de synthese
+
+Ce que je dois dire
+- Expliquer que cette phase a servi a clarifier ce qui devait etre livre.
+- Montrer que le perimetre a ete volontairement maitrise pour garantir une V1 fonctionnelle.
+- Faire le lien avec les attendus du guide : objet, finalite, modalites de pilotage, planning, indicateurs.
+
+---
+
+SLIDE 5 - PILOTAGE DU PROJET
+
+Nom de la slide
+- Organisation et pilotage
+
+Contenu de la slide
+- Frise chronologique ou planning en 4 phases :
+  - analyse du besoin
+  - conception technique
+  - developpement front-end et back-end
+  - tests, recettage, ajustements
+- Ajouter les modalites de suivi : points d'avancement, priorisation des taches, gestion du temps
+- Eventuellement un mini tableau avec risques et reponses : delais, complexite technique, arbitrage de priorites
+
+Ce que je dois dire
+- Expliquer comment tu as organise ton travail seul.
+- Montrer que tu as avance par etapes avec une logique de priorite.
+- Insister sur la visibilite du projet et la capacite d'adaptation, comme attendu dans la grille de pilotage.
+
+---
+
+SLIDE 6 - SOLUTION PROPOSEE
+
+Nom de la slide
+- Vue d'ensemble de la solution
+
+Contenu de la slide
+- Schema fonctionnel simple :
+  - le visiteur arrive sur le site
+  - il consulte les prestations
+  - il choisit une date et un creneau
+  - il reserve
+  - la cliente retrouve les rendez-vous dans le back-office
+  - la cliente peut creer ou supprimer des creneaux
+- Visuels : schema en fleches + petite capture du site et du back-office
+- Message cle : une plateforme unique pour communication, reservation et administration
+
+Ce que je dois dire
+- Presenter la solution comme une reponse directe au besoin client.
+- Montrer que le projet couvre a la fois le parcours public et la gestion interne.
+- Faire comprendre au jury que la valeur du projet vient de l'ensemble du flux et pas seulement de la partie visible.
+
+---
+
+SLIDE 7 - REALISATION FRONT-END
+
+Nom de la slide
+- Interface publique et experience utilisateur
+
+Contenu de la slide
+- Captures conseillees :
+  - page d'accueil
+  - section services
+  - section reservation avec calendrier
+- Points a afficher :
+  - site vitrine pour presenter l'activite
+  - section de reservation integree au site
+  - calendrier navigable et choix d'un creneau
+  - interface pensee pour desktop et mobile
+  - structure Angular en composants reutilisables
+- Tu peux citer a l'oral ou en bas de slide : `frontend/src/app/pages/home/home.component.html` et `frontend/src/app/components/booking-section/booking-section.component.html`
+
+Ce que je dois dire
+- Expliquer que le front-end devait servir l'image de marque et la conversion.
+- Montrer que la reservation ne se limite pas a un formulaire : il y a une vraie logique de selection des dates et des horaires.
+- Rappeler que le responsive fait partie des criteres d'evaluation de la specialite full-stack.
+
+---
+
+SLIDE 8 - REALISATION BACK-OFFICE
+
+Nom de la slide
+- Administration des rendez-vous et des disponibilites
+
+Contenu de la slide
+- Captures conseillees :
+  - page de connexion admin
+  - vue agenda semaine ou mois
+  - ecran de creation de creneaux
+- Fonctionnalites a lister :
+  - authentification admin
+  - visualisation des rendez-vous pris
+  - navigation hebdomadaire et mensuelle
+  - creation de creneaux
+  - suppression de creneaux non reserves
+  - recurrence quotidienne ou hebdomadaire
+- References utiles : `frontend/src/app/app.routes.ts`, `frontend/src/app/admin/pages/admin-calendar/admin-calendar.component.html`, `frontend/src/app/admin/pages/admin-slots/admin-slots.component.html`
+
+Ce que je dois dire
+- Insister sur le fait que le back-office etait un besoin fort du client.
+- Montrer que l'administration du site est facilitee, ce qui correspond directement a la grille d'evaluation full-stack.
+- Expliquer que l'outil donne de l'autonomie a la cliente dans la gestion de son activite.
+
+---
+
+SLIDE 9 - ARCHITECTURE TECHNIQUE
+
+Nom de la slide
+- Architecture full-stack
+
+Contenu de la slide
+- Schema technique :
+  - Angular pour l'interface utilisateur
+  - NestJS pour l'API
+  - PostgreSQL pour la persistance
+  - Prisma pour l'acces aux donnees
+- Ajouter deux blocs :
+  - routes publiques pour la reservation
+  - routes protegees pour l'administration
+- References utiles : `backend/src/appointments/appointments.controller.ts`, `backend/src/availability/availability.controller.ts`, `backend/src/auth/auth.controller.ts`
+
+Ce que je dois dire
+- Justifier la stack par la separation claire des responsabilites.
+- Expliquer que ce choix facilite l'evolution, la maintenabilite et la clarte de l'architecture.
+- Montrer que tu as construit un projet coherent de bout en bout, et pas seulement une interface graphique.
+
+---
+
+SLIDE 10 - LOGIQUE METIER ET CHOIX TECHNIQUES CLES
+
+Nom de la slide
+- Points techniques a forte valeur ajoutee
+
+Contenu de la slide
+- Schema metier conseille :
+  - creation d'un creneau
+  - expansion des occurrences futures si recurrence
+  - selection d'un creneau par l'utilisateur
+  - controle de disponibilite
+  - enregistrement du rendez-vous
+- Points a mettre en avant :
+  - gestion des creneaux simples et recurrents
+  - prevention des doubles reservations
+  - verification de la validite des occurrences
+  - impossibilite de supprimer un creneau deja reserve
+- References utiles : `backend/src/availability/availability.service.ts`, `backend/src/appointments/appointments.service.ts`
+
+Ce que je dois dire
+- Dire que cette partie montre la vraie complexite technique du projet.
+- Expliquer que la logique metier ne se limite pas a sauvegarder un formulaire.
+- Valoriser ton travail de developpeur full-stack en montrant la gestion des regles de reservation et des conflits.
+
+---
+
+SLIDE 11 - TESTS, RECETTAGE ET QUALITE
+
+Nom de la slide
+- Validation du projet
+
+Contenu de la slide
+- Tableau avec 3 colonnes : fonctionnalite / methode de verification / resultat
+- Exemples a afficher :
+  - creation de creneaux
+  - gestion des creneaux recurrents
+  - prevention des conflits de reservation
+  - affichage des rendez-vous dans l'admin
+  - verification du responsive
+- Mentionner les tests unitaires realises sur le back-end
+- References utiles : `backend/src/availability/availability.service.spec.ts` et `backend/src/appointments/appointments.service.spec.ts`
+
+Ce que je dois dire
+- Rattacher directement cette slide a la grille d'evaluation : structure technique, tests, recettage, corrections, responsive.
+- Expliquer que les cas sensibles ont ete verifies, notamment sur les disponibilites et les reservations recurrents.
+- Dire que l'objectif etait de livrer une V1 fonctionnelle et fiable.
+
+---
+
+SLIDE 12 - BILAN, LIMITES ET PERSPECTIVES
+
+Nom de la slide
+- Retour d'experience
+
+Contenu de la slide
+- 3 colonnes : reussites / limites / evolutions possibles
+- Reussites :
+  - une premiere version fonctionnelle
+  - un back-office exploitable
+  - une architecture full-stack claire
+- Limites :
+  - SEO encore perfectible
+  - systeme d'authentification admin simple
+  - V1 focalisee sur les fonctions essentielles
+- Evolutions possibles :
+  - notifications email
+  - confirmation ou annulation cote cliente
+  - tableau de bord KPI
+  - optimisation SEO locale
+
+Ce que je dois dire
+- Conclure sur ce que le projet t'a apporte professionnellement.
+- Montrer ta capacite d'analyse critique sur la V1 livree.
+- Ouvrir sur une version 2 realiste, en lien avec les besoins futurs du client.
+
+---
+
+CONSEILS DE PRESENTATION ORALE
+
+- Viser environ 1 minute par slide, avec un peu plus de temps sur les slides 8, 9 et 10.
+- Toujours faire le lien entre ce que tu montres et un critere d'evaluation du guide.
+- Mettre en avant ton double role : pilotage du projet et developpement full-stack.
+- Parler en termes de problemes resolus, de choix techniques et de valeur apportee au client.
+
+CAPTURES D'ECRAN A PREPARER
+
+- Page d'accueil du site
+- Section reservation avec calendrier
+- Agenda admin vue semaine
+- Agenda admin vue mois
+- Ecran de gestion des creneaux
+- Eventuellement un schema d'architecture propre realise sur Canva ou Figma
+
+POINTS IMPORTANTS POUR LE JURY
+
+- Le besoin client a ete compris puis reformule dans un cadre realiste.
+- Le pilotage du projet a ete structure malgre un travail en autonomie.
+- La solution repond au besoin metier avec une vraie logique technique.
+- Le back-office est un element fort du projet.
+- Le projet prend en compte les attentes de la grille full-stack : structuration, administration, tests, responsive.
