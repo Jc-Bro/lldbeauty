@@ -3,23 +3,23 @@
 <main class="admin-page">
   <header class="page-header">
     <div>
-      <h2>Gestion des disponibilites</h2>
+      <h2>Gestion des disponibilités</h2>
       <p>
-        Configurez vos prochains creneaux de soin pour permettre a vos clients de reserver leur moment de serenite.
+        Configurez vos prochains créneaux de soin pour permettre à vos clients de réserver leur moment de sérénité.
       </p>
     </div>
 
-    <button type="button" class="new-appointment-button">
+    <!-- <button type="button" class="new-appointment-button">
       <span class="material-symbols-outlined">add</span>
-      <span>Nouvel Appointement</span>
-    </button>
+      <span>Nouveau créneau</span>
+    </button> -->
   </header>
 
   <div class="content-grid">
     <section class="form-panel">
       <div class="panel-title">
         <span class="material-symbols-outlined">edit_calendar</span>
-        <h3>Creer des creneaux</h3>
+        <h3>Créer des créneaux</h3>
       </div>
 
       <form class="slot-form" (submit)="$event.preventDefault(); createSlot()">
@@ -30,7 +30,7 @@
 
         <div class="time-grid">
           <label>
-            <span>Heure de debut</span>
+            <span>Heure de début</span>
             <input type="time" [ngModel]="formState().startTime" (ngModelChange)="updateField('startTime', $event)" name="startTime" />
           </label>
 
@@ -51,7 +51,7 @@
         </label>
 
         <div class="recurrence-group">
-          <span>Recurrence</span>
+          <span>Récurrence</span>
           <div class="recurrence-options">
             <button
               type="button"
@@ -81,21 +81,21 @@
         <p class="form-feedback error" *ngIf="createErrorMessage()">{{ createErrorMessage() }}</p>
 
         <button type="submit" class="save-button" [disabled]="!canSubmit()">
-          {{ isSubmitting() ? 'Enregistrement...' : 'Enregistrer les creneaux' }}
+          {{ isSubmitting() ? 'Enregistrement...' : 'Enregistrer les créneaux' }}
         </button>
       </form>
     </section>
 
     <section class="preview-panel">
       <div class="preview-header">
-        <h3>Apercu de la semaine</h3>
+        <h3>Aperçu de la semaine</h3>
         <div class="preview-controls">
           <button type="button" (click)="previousWeek()"><span class="material-symbols-outlined">chevron_left</span></button>
           <button type="button" (click)="nextWeek()"><span class="material-symbols-outlined">chevron_right</span></button>
         </div>
       </div>
 
-      <p class="preview-state" *ngIf="loadingPreviewSlots()">Chargement de l'apercu...</p>
+      <p class="preview-state" *ngIf="loadingPreviewSlots()">Chargement de l'aperçu...</p>
       <p class="preview-state error" *ngIf="previewSlotsError()">{{ previewSlotsError() }}</p>
 
       <div class="week-grid">
@@ -104,7 +104,7 @@
           <strong>{{ day.dayNumber }}</strong>
 
           <div class="day-slots" *ngIf="!loadingPreviewSlots() && !previewSlotsError()">
-            <p class="empty-day" *ngIf="!slotsForDate(day.isoDate).length">Aucun creneau</p>
+            <p class="empty-day" *ngIf="!slotsForDate(day.isoDate).length">Aucun créneau</p>
 
             <article class="day-slot" *ngFor="let slot of slotsForDate(day.isoDate)">
               <span>{{ slotTimeRange(slot) }}</span>
@@ -115,16 +115,16 @@
       </div>
 
       <p class="preview-state" *ngIf="!loadingPreviewSlots() && !previewSlotsError() && !hasPreviewSlots()">
-        Aucun creneau disponible sur la periode affichee.
+        Aucun créneau disponible sur la période affichée.
       </p>
 
       <div class="recent-section">
-        <h4>Creneaux recemment ajoutes</h4>
+        <h4>Créneaux récemment ajoutés</h4>
 
-        <p class="recent-state" *ngIf="loadingRecentSlots()">Chargement des creneaux...</p>
+        <p class="recent-state" *ngIf="loadingRecentSlots()">Chargement des créneaux...</p>
         <p class="recent-state error" *ngIf="recentSlotsError()">{{ recentSlotsError() }}</p>
         <p class="recent-state" *ngIf="!loadingRecentSlots() && !recentSlotsError() && !hasRecentSlots()">
-          Aucun creneau recent a afficher.
+          Aucun créneau récent à afficher.
         </p>
 
         <article class="recent-card" *ngFor="let slot of recentSlots()">
@@ -151,7 +151,7 @@
           alt="High-end skincare products arranged artistically"
         />
         <div class="quote-overlay">
-          <p>L'excellence se cache dans les details de votre organisation.</p>
+          <p>L'excellence se cache dans les détails de votre organisation.</p>
         </div>
       </div>
     </section>
