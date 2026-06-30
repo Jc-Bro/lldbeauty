@@ -38,6 +38,22 @@ h2 {
   font-size: 1.7rem;
 }
 
+.instagram-icon {
+  width: 1.7rem;
+  height: 1.7rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: 0 0 auto;
+}
+
+.instagram-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
 h3 {
   margin: 0;
   color: #1c1b1b;
@@ -49,6 +65,18 @@ p {
   margin: 6px 0 0;
   color: #43493e;
   line-height: 1.7;
+}
+
+a {
+  display: inline-block;
+  margin: 6px 0 0;
+  color: #426830;
+  line-height: 1.7;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .form-card {

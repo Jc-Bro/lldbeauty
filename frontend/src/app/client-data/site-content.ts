@@ -38,6 +38,7 @@ export interface ContactDetail {
   icon: string;
   title: string;
   lines: string[];
+  href?: string;
 }
 
 export interface FooterLink {
@@ -144,12 +145,13 @@ export const contactDetails: ContactDetail[] = [
   {
     icon: 'location_on',
     title: 'LLDBeauty',
-    lines: ['25 chemin de la chaussée, 35120 Dol-de-Bretagne'],
+    lines: ['25 chemin de la chaussée,', '35120 Dol-de-Bretagne'],
   },
   {
-    icon: 'schedule',
-    title: "Horaires d'Ouverture",
-    lines: ['Mardi - Vendredi: 10h - 19h', 'Samedi: 09h - 18h'],
+    icon: 'instagram',
+    title: 'Instagram',
+    lines: ['lldbeauty_'],
+    href: 'https://instagram.com/lldbeauty_',
   },
   {
     icon: 'call',
